@@ -127,7 +127,7 @@ export default function HomePage() {
   const [selectedProduct, setSelectedProduct] = useState(null)
   const [favorites, setFavorites] = useState(new Set())
 
-  const toggleFavorite = (productId) => {
+  const toggleFavorite = (productId: any) => {
     const newFavorites = new Set(favorites)
     if (newFavorites.has(productId)) {
       newFavorites.delete(productId)
@@ -162,7 +162,7 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
+          {products.map((product: any) => (
             <Card
               key={product.id}
               className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md"

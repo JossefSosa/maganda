@@ -70,10 +70,6 @@ export default function ProfilePage() {
                     Direcciones
                   </Button>
                   <Button variant="ghost" className="w-full justify-start">
-                    <CreditCard className="h-4 w-4 mr-3" />
-                    Métodos de Pago
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start">
                     <Settings className="h-4 w-4 mr-3" />
                     Configuración
                   </Button>
@@ -143,33 +139,6 @@ export default function ProfilePage() {
                 <Button variant="outline" className="w-full mt-4">
                   Ver Todos los Pedidos
                 </Button>
-              </CardContent>
-            </Card>
-
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Acciones Rápidas</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <Button className="h-20 flex-col space-y-2">
-                    <Heart className="h-6 w-6" />
-                    <span>Ver Lista de Deseos</span>
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col space-y-2">
-                    <Package className="h-6 w-6" />
-                    <span>Rastrear Pedido</span>
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col space-y-2">
-                    <MapPin className="h-6 w-6" />
-                    <span>Gestionar Direcciones</span>
-                  </Button>
-                  <Button variant="outline" className="h-20 flex-col space-y-2">
-                    <Settings className="h-6 w-6" />
-                    <span>Configuración</span>
-                  </Button>
-                </div>
               </CardContent>
             </Card>
           </div>

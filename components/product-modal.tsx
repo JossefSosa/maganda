@@ -241,8 +241,6 @@ export default function ProductModal({ product, isOpen, onClose }) {
 
             {/* Additional Info */}
             <div className="text-sm text-gray-600 space-y-2 pt-4 border-t">
-              <p>• Envío gratuito en pedidos superiores a €50</p>
-              <p>• Devoluciones gratuitas en 30 días</p>
               <p>• Atención al cliente 24/7</p>
             </div>
           </div>

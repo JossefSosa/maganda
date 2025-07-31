@@ -18,14 +18,12 @@ export default function Navigation() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-10 text-sm">
             <div className="flex items-center space-x-6 text-gray-600">
-              <span>Envío gratuito en pedidos +€50</span>
-              <span>Devoluciones gratuitas 30 días</span>
             </div>
             <div className="flex items-center space-x-4 text-gray-600">
               <Link href="/help" className="hover:text-gray-900">
                 Ayuda
               </Link>
-              <Link href="/size-guide" className="hover:text-gray-900">
+              <Link href="/size_guide" className="hover:text-gray-900">
                 Guía de Tallas
               </Link>
               <Link href="/stores" className="hover:text-gray-900">
@@ -46,7 +44,7 @@ export default function Navigation() {
 
           {/* Logo - Centrado en móvil, izquierda en desktop */}
           <Link href="/" className="text-2xl font-bold text-gray-900 md:mr-12">
-            STYLISH
+            MAGANDA
           </Link>
 
           {/* Desktop Navigation */}
