@@ -9,6 +9,32 @@ import { Badge } from "@/components/ui/badge"
 import Navigation from "@/components/navigation"
 import ProductModal from "@/components/product-modal"
 
+type Collection = {
+  id: number
+  name: string
+  description: string
+  image: string
+  productCount: number
+  featured?: boolean
+}
+
+type Product = {
+  id: number
+  name: string
+  price: number
+  originalPrice?: number
+  category: string
+  rating: number
+  reviews: number
+  images: string[]
+  description: string
+  sizes: string[]
+  colors: string[]
+  isNew?: boolean
+  isSale?: boolean
+}
+
+
 const collections = [
   {
     id: 1,
@@ -41,7 +67,7 @@ const collections = [
   },
 ]
 
-const collectionProducts = {
+const collectionProducts: Record<number, Product[]> = {
   1: [
     {
       id: 1,
@@ -180,11 +206,11 @@ const collectionProducts = {
 }
 
 export default function CollectionsPage() {
-  const [selectedProduct, setSelectedProduct] = useState(null)
-  const [selectedCollection, setSelectedCollection] = useState(null)
-  const [favorites, setFavorites] = useState(new Set())
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null)
+  const [favorites, setFavorites] = useState<Set<number>>(new Set())
 
-  const toggleFavorite = (productId) => {
+  const toggleFavorite = (productId: any) => {
     const newFavorites = new Set(favorites)
     if (newFavorites.has(productId)) {
       newFavorites.delete(productId)
@@ -236,7 +262,7 @@ export default function CollectionsPage() {
 
             {/* Collections Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {collections.map((collection) => (
+              {collections.map((collection: any) => (
                 <Card
                   key={collection.id}
                   className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md"
@@ -298,7 +324,7 @@ export default function CollectionsPage() {
 
             {/* Collection Products */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {(collectionProducts[selectedCollection.id] || []).map((product) => (
+              {(collectionProducts[selectedCollection.id] || []).map((product: any) => (
                 <Card
                   key={product.id}
                   className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md"
@@ -327,9 +353,8 @@ export default function CollectionsPage() {
                         }}
                       >
                         <Heart
-                          className={`h-5 w-5 ${
-                            favorites.has(product.id) ? "fill-red-500 text-red-500" : "text-gray-600"
-                          }`}
+                          className={`h-5 w-5 ${favorites.has(product.id) ? "fill-red-500 text-red-500" : "text-gray-600"
+                            }`}
                         />
                       </Button>
                     </div>
@@ -340,9 +365,8 @@ export default function CollectionsPage() {
                           {[...Array(5)].map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-4 w-4 ${
-                                i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                              }`}
+                              className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                                }`}
                             />
                           ))}
                         </div>
@@ -354,9 +378,9 @@ export default function CollectionsPage() {
 
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <span className="text-2xl font-bold text-gray-900">€{product.price}</span>
+                          <span className="text-2xl font-bold text-gray-900">${product.price}</span>
                           {product.originalPrice && (
-                            <span className="text-lg text-gray-500 line-through">€{product.originalPrice}</span>
+                            <span className="text-lg text-gray-500 line-through">${product.originalPrice}</span>
                           )}
                         </div>
                         <Button

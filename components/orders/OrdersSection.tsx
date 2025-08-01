@@ -46,7 +46,7 @@ export const OrdersSection = ({
                       {formatDate(order.date)}
                     </span>
                     <span className="flex items-center gap-1">
-                      <CreditCard className="h-4 w-4" />€{order.total}
+                      <CreditCard className="h-4 w-4" />${order.total}
                     </span>
                   </div>
                 </div>
@@ -70,7 +70,7 @@ export const OrdersSection = ({
                       <p className="text-xs text-gray-600">
                         Talla: {item.size} | Color: {item.color}
                       </p>
-                      <p className="text-sm font-semibold">€{item.price}</p>
+                      <p className="text-sm font-semibold">${item.price}</p>
                     </div>
                   </div>
                 ))}

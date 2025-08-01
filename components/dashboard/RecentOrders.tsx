@@ -36,7 +36,7 @@ export const RecentOrders = ({ orders, onViewAllOrders, onViewOrderDetails }: Re
             </div>
 
             <div className="text-right">
-              <div className="font-semibold">€{order.total}</div>
+              <div className="font-semibold">${order.total}</div>
               <div className="text-sm text-gray-600">
                 {order.items.length} {order.items.length === 1 ? "artículo" : "artículos"}
               </div>
