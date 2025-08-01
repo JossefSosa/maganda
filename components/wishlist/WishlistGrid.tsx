@@ -38,8 +38,8 @@ export const WishlistGrid = ({ items, onRemoveItem }: WishlistGridProps) => {
           <div className="p-4 space-y-2">
             <h3 className="font-medium text-sm line-clamp-2">{item.name}</h3>
             <div className="flex items-center gap-2">
-              <span className="font-bold">€{item.price}</span>
-              {item.originalPrice && <span className="text-sm text-gray-500 line-through">€{item.originalPrice}</span>}
+              <span className="font-bold">${item.price}</span>
+              {item.originalPrice && <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>}
             </div>
             <Button className="w-full" size="sm" disabled={!item.inStock}>
               {item.inStock ? "Añadir al carrito" : "No disponible"}

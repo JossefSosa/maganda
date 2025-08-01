@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter } from "next/navigation"
 import {
   Menu,
   Search,
@@ -45,7 +45,7 @@ export default function Navigation({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const router = useRouter()
-  const pathname = usePathname()
+  // const pathname = usePathname()
 
   const handleProfileNavigation = (section?: string) => {
     if (onNavigateToProfile) {
@@ -68,7 +68,7 @@ export default function Navigation({
     router.push("/login")
   }
 
-  const isProfilePage = pathname === "/profile"
+  // const isProfilePage = pathname === "/profile"
 
   return (
     <nav className="bg-white shadow-sm border-b sticky top-0 z-50">

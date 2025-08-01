@@ -126,7 +126,7 @@ export const OrderDetailsDialog = ({ order, isOpen, onClose }: OrderDetailsDialo
                     <p className="text-sm text-gray-600">Cantidad: 1</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">€{item.price}</p>
+                    <p className="font-semibold">${item.price}</p>
                   </div>
                 </div>
               ))}
@@ -164,20 +164,20 @@ export const OrderDetailsDialog = ({ order, isOpen, onClose }: OrderDetailsDialo
             <div className="p-4 border rounded-lg space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal:</span>
-                <span>€{(order.total * 0.9).toFixed(2)}</span>
+                <span>${(order.total * 0.9).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Envío:</span>
-                <span>€{(order.total * 0.1).toFixed(2)}</span>
+                <span>${(order.total * 0.1).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">IVA (21%):</span>
-                <span>€{(order.total * 0.21).toFixed(2)}</span>
+                <span>${(order.total * 0.21).toFixed(2)}</span>
               </div>
               <Separator />
               <div className="flex justify-between font-semibold text-lg">
                 <span>Total:</span>
-                <span>€{order.total}</span>
+                <span>${order.total}</span>
               </div>
             </div>
           </div>

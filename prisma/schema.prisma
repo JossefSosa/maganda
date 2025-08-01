@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id_usuario   Int         @id @default(autoincrement())
+  nombre       String
+  email        String      @unique
+  contraseña  String
+  tipo_usuario TipoUsuario
+
+  pedidos   Pedido[]
+  favoritos Favorito[]
+  opiniones Opinion[]
+}
+
+model Producto {
+  id_producto       Int     @id @default(autoincrement())
+  nombre            String
+  descripcion       String
+  material          String
+  precio            Decimal
+  imagen            String
+  es_unico          Boolean
+  es_personalizable Boolean
+
+  detalles_pedido DetallePedido[]
+  favoritos       Favorito[]
+  opiniones       Opinion[]
+}
+
+model Pedido {
+  id_pedido  Int      @id @default(autoincrement())
+  id_usuario Int
+  fecha      DateTime
+
+  usuario  Usuario         @relation(fields: [id_usuario], references: [id_usuario])
+  detalles DetallePedido[]
+}
+
+model DetallePedido {
+  id_detalle  Int @id @default(autoincrement())
+  id_pedido   Int
+  id_producto Int
+  cantidad    Int
+
+  pedido   Pedido   @relation(fields: [id_pedido], references: [id_pedido])
+  producto Producto @relation(fields: [id_producto], references: [id_producto])
+}
+
+model Favorito {
+  id_favorito Int @id @default(autoincrement())
+  id_usuario  Int
+  id_producto Int
+
+  usuario  Usuario  @relation(fields: [id_usuario], references: [id_usuario])
+  producto Producto @relation(fields: [id_producto], references: [id_producto])
+}
+
+model Opinion {
+  id_opinion   Int    @id @default(autoincrement())
+  id_producto  Int
+  id_usuario   Int
+  calificacion Int
+  comentario   String
+
+  usuario  Usuario  @relation(fields: [id_usuario], references: [id_usuario])
+  producto Producto @relation(fields: [id_producto], references: [id_producto])
+}
+
+enum TipoUsuario {
+  admin
+  cliente
+}
