@@ -27,11 +27,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+
 interface NavigationProps {
   onNavigateToProfile?: (section?: string) => void
   isLoggedIn?: boolean
   userData?: {
-    name: string
+    firstName: string
     email: string
     avatar?: string
   }
@@ -40,7 +41,7 @@ interface NavigationProps {
 export default function Navigation({
   onNavigateToProfile,
   isLoggedIn = true,
-  userData = { name: "María García", email: "maria.garcia@email.com" },
+  userData = { firstName: "María", email: "maria.garcia@email.com" },
 }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -173,9 +174,9 @@ export default function Navigation({
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={userData.avatar || "/placeholder.svg?height=32&width=32"} alt={userData.name} />
+                      <AvatarImage src={userData.avatar || "/placeholder.svg?height=32&width=32"} alt={userData.firstName} />
                       <AvatarFallback>
-                        {userData.name
+                        {userData.firstName
                           .split(" ")
                           .map((n) => n[0])
                           .join("")}
@@ -186,7 +187,7 @@ export default function Navigation({
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
-                      <p className="font-medium">{userData.name}</p>
+                      <p className="font-medium">{userData.firstName}</p>
                       <p className="w-[200px] truncate text-sm text-muted-foreground">{userData.email}</p>
                     </div>
                   </div>
