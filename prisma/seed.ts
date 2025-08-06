@@ -1,93 +1,138 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 async function main() {
-    await prisma.usuario.createMany({
-        data: [
-            {
-                nombre: 'Admin User',
-                email: 'admin@example.com',
-                contraseña: 'admin123',
-                tipo_usuario: 'admin', // string literal en lugar de TipoUsuario enum
-            },
-            {
-                nombre: 'Cliente User',
-                email: 'cliente@example.com',
-                contraseña: 'cliente123',
-                tipo_usuario: 'cliente',
-            },
-        ],
-        skipDuplicates: true,
-    })
-
-    const cliente = await prisma.usuario.findUnique({ where: { email: 'cliente@example.com' } })
-
-    await prisma.producto.createMany({
-        data: [
-            {
-                nombre: 'Playera Blanca',
-                descripcion: 'Playera básica de algodón',
-                material: 'Algodón',
-                precio: 199.99,
-                imagen: 'playera-blanca.jpg',
-                es_unico: false,
-                es_personalizable: true,
-            },
-            {
-                nombre: 'Taza Negra',
-                descripcion: 'Taza de cerámica negra',
-                material: 'Cerámica',
-                precio: 129.5,
-                imagen: 'taza-negra.jpg',
-                es_unico: false,
-                es_personalizable: false,
-            },
-            {
-                nombre: 'Poster Arte',
-                descripcion: 'Poster decorativo artístico',
-                material: 'Papel',
-                precio: 89.9,
-                imagen: 'poster-arte.jpg',
-                es_unico: true,
-                es_personalizable: false,
-            },
-        ],
-        skipDuplicates: true,
-    })
-
-    const productos = await prisma.producto.findMany()
-
-    await prisma.pedido.create({
+    const user = await prisma.user.create({
         data: {
-            id_usuario: cliente!.id_usuario,
-            fecha: new Date(),
-            detalles: {
-                create: [
-                    { id_producto: productos[0].id_producto, cantidad: 2 },
-                    { id_producto: productos[1].id_producto, cantidad: 1 },
-                ],
+            email: 'john.doe@example.com',
+            passwordHash: 'hashed-password',
+            firstName: 'John',
+            lastName: 'Doe',
+            phone: '1234567890',
+            isVip: true,
+            emailVerified: true,
+            newsletterSubscribed: true,
+            addresses: {
+                create: {
+                    type: 'shipping',
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    addressLine1: '123 Main St',
+                    city: 'Madrid',
+                    postalCode: '28001',
+                    country: 'España',
+                    isDefault: true,
+                },
             },
         },
-    })
+    });
 
-    await prisma.favorito.create({
+    const category = await prisma.category.create({
         data: {
-            id_usuario: cliente!.id_usuario,
-            id_producto: productos[2].id_producto,
+            name: 'Ropa',
+            slug: 'ropa',
         },
-    })
+    });
 
-    await prisma.opinion.create({
+    const product = await prisma.product.create({
         data: {
-            id_usuario: cliente!.id_usuario,
-            id_producto: productos[1].id_producto,
-            calificacion: 4,
-            comentario: 'Muy buen producto, me gustó bastante.',
+            name: 'Camiseta Blanca',
+            slug: 'camiseta-blanca',
+            description: 'Una camiseta básica de algodón blanco.',
+            price: 299.99,
+            categoryId: category.id,
+            isNew: true,
+            isFeatured: true,
+            images: {
+                create: {
+                    imageUrl: 'https://example.com/image.jpg',
+                    isPrimary: true,
+                },
+            },
+            variants: {
+                create: {
+                    size: 'M',
+                    color: 'Blanco',
+                    stockQuantity: 50,
+                },
+            },
         },
-    })
+    });
 
-    console.log('✅ Seed completado.')
+    await prisma.userFavorite.create({
+        data: {
+            userId: user.id,
+            productId: product.id,
+        },
+    });
+
+    const collection = await prisma.collection.create({
+        data: {
+            name: 'Nuevas Llegadas',
+            slug: 'nuevas-llegadas',
+            isFeatured: true,
+            products: {
+                create: {
+                    productId: product.id,
+                },
+            },
+        },
+    });
+
+    const blogCategory = await prisma.blogCategory.create({
+        data: {
+            name: 'Moda',
+            slug: 'moda',
+        },
+    });
+
+    const blogTag = await prisma.blogTag.create({
+        data: {
+            name: 'Estilo',
+            slug: 'estilo',
+        },
+    });
+
+    const blogPost = await prisma.blogPost.create({
+        data: {
+            title: 'Tendencias de moda 2025',
+            slug: 'tendencias-moda-2025',
+            content: 'Contenido del blog...',
+            authorName: 'John Doe',
+            isPublished: true,
+            categoryId: blogCategory.id,
+            tags: {
+                create: {
+                    tagId: blogTag.id,
+                },
+            },
+        },
+    });
+
+    await prisma.blogPostLike.create({
+        data: {
+            userId: user.id,
+            postId: blogPost.id,
+        },
+    });
+
+    await prisma.blogComment.create({
+        data: {
+            postId: blogPost.id,
+            userId: user.id,
+            content: '¡Gran artículo!',
+            isApproved: true,
+        },
+    });
+
+    console.log('✅ Seed completed');
 }
 
-main().catch(console.error).finally(() => prisma.$disconnect())
+main()
+    .catch((e) => {
+        console.error('❌ Seed error', e);
+        process.exit(1);
+    })
+    .finally(() => {
+        prisma.$disconnect();
+    });
