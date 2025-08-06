@@ -1,5 +1,6 @@
 "use client"
 
+
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -64,7 +65,9 @@ export default function Navigation({
 
   const handleLogout = () => {
     // Aquí implementarías la lógica de logout
+    // Aquí implementarías la lógica de logout
     console.log("Cerrando sesión...")
+    // Ejemplo: signOut(), clearTokens(), etc.
     // Ejemplo: signOut(), clearTokens(), etc.
     router.push("/login")
   }
@@ -93,6 +96,7 @@ export default function Navigation({
         </div>
       </div>
 
+
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -101,10 +105,12 @@ export default function Navigation({
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
 
+
           {/* Logo - Centrado en móvil, izquierda en desktop */}
           <Link href="/" className="text-2xl font-bold text-gray-900 md:mr-12">
             MAGANDA
           </Link>
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 flex-1">
@@ -149,6 +155,7 @@ export default function Navigation({
             </Link>
           </div>
 
+
           {/* Search Bar - Desktop */}
           <div className="hidden lg:flex items-center flex-1 max-w-sm mx-8">
             <div className="relative w-full">
@@ -161,12 +168,14 @@ export default function Navigation({
             </div>
           </div>
 
+
           {/* Right Icons */}
           <div className="flex items-center space-x-2">
             {/* Search Icon - Mobile/Tablet */}
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
               <Search className="h-5 w-5" />
             </Button>
+
 
             {/* User Account */}
             {isLoggedIn ? (
@@ -223,7 +232,11 @@ export default function Navigation({
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
               </Button>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
             )}
+
 
             {/* Wishlist */}
             <Button
@@ -238,12 +251,14 @@ export default function Navigation({
               </span>
             </Button>
 
+
             {/* Contact */}
             <Button variant="ghost" size="icon" className="relative" title="Contacto rápido">
               <MessageCircle className="h-5 w-5" />
             </Button>
           </div>
         </div>
+
 
         {/* Mobile Search Bar */}
         {isSearchOpen && (
@@ -260,6 +275,7 @@ export default function Navigation({
           </div>
         )}
 
+
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden border-t bg-white">
@@ -271,6 +287,7 @@ export default function Navigation({
               >
                 Inicio
               </Link>
+
 
               {/* Mobile Products Menu */}
               <div className="px-3 py-2">
@@ -307,6 +324,7 @@ export default function Navigation({
                 </div>
               </div>
 
+
               <Link
                 href="/collections"
                 className="block px-3 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg font-medium transition-colors"
@@ -330,6 +348,8 @@ export default function Navigation({
               </Link>
 
               {/* Mobile User Menu */}
+              {isLoggedIn && (
+                {/* Mobile User Menu */ }
               {isLoggedIn && (
                 <div className="border-t pt-3 mt-3">
                   <div className="px-3 py-2 text-gray-700 font-medium">Mi Cuenta</div>
