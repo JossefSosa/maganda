@@ -1,4 +1,5 @@
 "use client"
+
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -26,11 +27,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+
 interface NavigationProps {
   onNavigateToProfile?: (section?: string) => void
   isLoggedIn?: boolean
   userData?: {
-    name: string
+    firstName: string
     email: string
     avatar?: string
   }
@@ -38,8 +40,8 @@ interface NavigationProps {
 
 export default function Navigation({
   onNavigateToProfile,
-  isLoggedIn = false, // Cambiado a false por defecto para simular un usuario no logueado
-  userData = { name: "María García", email: "maria.garcia@email.com" },
+  isLoggedIn = true,
+  userData = { firstName: "María", email: "maria.garcia@email.com" },
 }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -61,9 +63,9 @@ export default function Navigation({
   }
 
   const handleLogout = () => {
-    // Aquí implementarías la lógica de logout real (ej: signOut(), clearTokens(), etc.)
+    // Aquí implementarías la lógica de logout
     console.log("Cerrando sesión...")
-    // Después de cerrar sesión, redirigir al login
+    // Ejemplo: signOut(), clearTokens(), etc.
     router.push("/login")
   }
 
@@ -80,7 +82,7 @@ export default function Navigation({
               <Link href="/help" className="hover:text-gray-900">
                 Ayuda
               </Link>
-              <Link href="/size_guide" className="hover:text-gray-900">
+              <Link href="/sizeGuide" className="hover:text-gray-900">
                 Guía de Tallas
               </Link>
               <Link href="/stores" className="hover:text-gray-900">
@@ -90,6 +92,7 @@ export default function Navigation({
           </div>
         </div>
       </div>
+
       {/* Main Navigation */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
@@ -97,10 +100,12 @@ export default function Navigation({
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
+
           {/* Logo - Centrado en móvil, izquierda en desktop */}
           <Link href="/" className="text-2xl font-bold text-gray-900 md:mr-12">
             MAGANDA
           </Link>
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8 flex-1">
             <Link href="/" className="text-gray-700 hover:text-gray-900 font-medium transition-colors">
@@ -143,6 +148,7 @@ export default function Navigation({
               Contacto
             </Link>
           </div>
+
           {/* Search Bar - Desktop */}
           <div className="hidden lg:flex items-center flex-1 max-w-sm mx-8">
             <div className="relative w-full">
@@ -154,21 +160,23 @@ export default function Navigation({
               />
             </div>
           </div>
+
           {/* Right Icons */}
           <div className="flex items-center space-x-2">
             {/* Search Icon - Mobile/Tablet */}
             <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setIsSearchOpen(!isSearchOpen)}>
               <Search className="h-5 w-5" />
             </Button>
+
             {/* User Account */}
             {isLoggedIn ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage src={userData.avatar || "/placeholder.svg?height=32&width=32"} alt={userData.name} />
+                      <AvatarImage src={userData.avatar || "/placeholder.svg?height=32&width=32"} alt={userData.firstName} />
                       <AvatarFallback>
-                        {userData.name
+                        {userData.firstName
                           .split(" ")
                           .map((n) => n[0])
                           .join("")}
@@ -179,7 +187,7 @@ export default function Navigation({
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="flex items-center justify-start gap-2 p-2">
                     <div className="flex flex-col space-y-1 leading-none">
-                      <p className="font-medium">{userData.name}</p>
+                      <p className="font-medium">{userData.firstName}</p>
                       <p className="w-[200px] truncate text-sm text-muted-foreground">{userData.email}</p>
                     </div>
                   </div>
@@ -212,13 +220,11 @@ export default function Navigation({
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              // Opción de Iniciar Sesión cuando no está logueado
-              <Link href="/login">
-                <Button variant="ghost" size="icon">
-                  <User className="h-5 w-5" />
-                </Button>
-              </Link>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
             )}
+
             {/* Wishlist */}
             <Button
               variant="ghost"
@@ -231,12 +237,14 @@ export default function Navigation({
                 2
               </span>
             </Button>
+
             {/* Contact */}
             <Button variant="ghost" size="icon" className="relative" title="Contacto rápido">
               <MessageCircle className="h-5 w-5" />
             </Button>
           </div>
         </div>
+
         {/* Mobile Search Bar */}
         {isSearchOpen && (
           <div className="lg:hidden border-t bg-white py-3">
@@ -251,6 +259,7 @@ export default function Navigation({
             </div>
           </div>
         )}
+
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden border-t bg-white">
@@ -262,6 +271,7 @@ export default function Navigation({
               >
                 Inicio
               </Link>
+
               {/* Mobile Products Menu */}
               <div className="px-3 py-2">
                 <div className="text-gray-700 font-medium mb-2">Productos</div>
@@ -296,6 +306,7 @@ export default function Navigation({
                   </Link>
                 </div>
               </div>
+
               <Link
                 href="/collections"
                 className="block px-3 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg font-medium transition-colors"
@@ -318,16 +329,8 @@ export default function Navigation({
                 Contacto
               </Link>
 
-              {/* Mobile User Menu / Login */}
-              {!isLoggedIn ? (
-                <Link
-                  href="/login"
-                  className="block px-3 py-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg font-medium transition-colors border-t pt-3 mt-3"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Iniciar Sesión
-                </Link>
-              ) : (
+              {/* Mobile User Menu */}
+              {isLoggedIn && (
                 <div className="border-t pt-3 mt-3">
                   <div className="px-3 py-2 text-gray-700 font-medium">Mi Cuenta</div>
                   <div className="pl-6 space-y-1">

@@ -1,5 +1,10 @@
 node_modules
 .next
+dist
+*.log
+Dockerfile
+docker-compose.yml
 .env
+.vscode
 .git
 .DS_Store
