@@ -82,7 +82,7 @@ export default function Navigation({
               <Link href="/help" className="hover:text-gray-900">
                 Ayuda
               </Link>
-              <Link href="/sizeGuide" className="hover:text-gray-900">
+              <Link href="/size_guide" className="hover:text-gray-900">
                 Guía de Tallas
               </Link>
               <Link href="/stores" className="hover:text-gray-900">
