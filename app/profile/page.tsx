@@ -1,10 +1,9 @@
-// app/profile/page.tsx (Server Component, sin "use client")
-import { getProfileAction } from "./actions"
-import ProfilePageClient from "./ProfilePageClient"
 
-export default async function ProfilePage() {
-    const userData = await getProfileAction("5e6b8a3a-a60b-4ba7-8528-6f689a213139") // llamada server
-    console.log('userData :', userData);
+import { getProfileAction } from "./actions"  // o desde donde exportes tu server action
+import ProfilePage from "./ProfilePage"
 
-    return <ProfilePageClient userData={userData} />
+export default async function Profile() {
+  const userData = await getProfileAction("9aa00be0-9ac5-4235-88b2-418ed1ee89c9")
+
+  return <ProfilePage userData={userData} />
 }
