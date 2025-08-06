@@ -232,9 +232,6 @@ export default function Navigation({
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
             )}
 
 
@@ -348,8 +345,6 @@ export default function Navigation({
               </Link>
 
               {/* Mobile User Menu */}
-              {isLoggedIn && (
-                {/* Mobile User Menu */ }
               {isLoggedIn && (
                 <div className="border-t pt-3 mt-3">
                   <div className="px-3 py-2 text-gray-700 font-medium">Mi Cuenta</div>
