@@ -68,7 +68,7 @@ export const DashboardView = ({ userData, orders, onViewAllOrders, onViewOrderDe
                   <Badge className={getStatusColor(order.status)}>{order.status}</Badge>
                 </div>
                 <div className="text-right">
-                  <div className="font-medium">€{order.total}</div>
+                  <div className="font-medium">${order.total}</div>
                   <div className="text-sm text-gray-600">
                     {order.items.length} {order.items.length === 1 ? "artículo" : "artículos"}
                   </div>

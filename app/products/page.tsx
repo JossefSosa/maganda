@@ -162,8 +162,24 @@ const allProducts = [
 
 const categories = ["Todos", "Vestidos", "Blazers", "Pantalones", "Blusas", "Faldas", "Abrigos", "Camisas", "Jeans"]
 
+type Product = {
+  id: number
+  name: string
+  price: number
+  originalPrice?: number
+  category: string
+  rating: number
+  reviews: number
+  images: string[]
+  description: string
+  sizes: string[]
+  colors: string[]
+  isNew?: boolean
+  isSale?: boolean
+}
+
 export default function ProductsPage() {
-  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const [favorites, setFavorites] = useState(new Set())
   const [viewMode, setViewMode] = useState("grid")
   const [sortBy, setSortBy] = useState("featured")
@@ -171,7 +187,7 @@ export default function ProductsPage() {
   const [priceRange, setPriceRange] = useState([0, 300])
   const [showFilters, setShowFilters] = useState(false)
 
-  const toggleFavorite = (productId) => {
+  const toggleFavorite = (productId: any) => {
     const newFavorites = new Set(favorites)
     if (newFavorites.has(productId)) {
       newFavorites.delete(productId)
@@ -252,8 +268,8 @@ export default function ProductsPage() {
                   <div className="space-y-4">
                     <Slider value={priceRange} onValueChange={setPriceRange} max={300} step={5} className="w-full" />
                     <div className="flex justify-between text-sm text-gray-600">
-                      <span>€{priceRange[0]}</span>
-                      <span>€{priceRange[1]}</span>
+                      <span>${priceRange[0]}</span>
+                      <span>${priceRange[1]}</span>
                     </div>
                   </div>
                 </div>
@@ -334,9 +350,8 @@ export default function ProductsPage() {
               {sortedProducts.map((product) => (
                 <Card
                   key={product.id}
-                  className={`group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md ${
-                    viewMode === "list" ? "flex" : ""
-                  }`}
+                  className={`group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md ${viewMode === "list" ? "flex" : ""
+                    }`}
                 >
                   <CardContent className="p-0">
                     <div className={`${viewMode === "list" ? "flex" : ""}`}>
@@ -346,9 +361,8 @@ export default function ProductsPage() {
                           alt={product.name}
                           width={400}
                           height={500}
-                          className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
-                            viewMode === "list" ? "w-48 h-48" : "w-full h-80"
-                          }`}
+                          className={`object-cover group-hover:scale-105 transition-transform duration-300 ${viewMode === "list" ? "w-48 h-48" : "w-full h-80"
+                            }`}
                           onClick={() => setSelectedProduct(product)}
                         />
                         <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -365,9 +379,8 @@ export default function ProductsPage() {
                           }}
                         >
                           <Heart
-                            className={`h-5 w-5 ${
-                              favorites.has(product.id) ? "fill-red-500 text-red-500" : "text-gray-600"
-                            }`}
+                            className={`h-5 w-5 ${favorites.has(product.id) ? "fill-red-500 text-red-500" : "text-gray-600"
+                              }`}
                           />
                         </Button>
                       </div>
@@ -378,9 +391,8 @@ export default function ProductsPage() {
                             {[...Array(5)].map((_, i) => (
                               <Star
                                 key={i}
-                                className={`h-4 w-4 ${
-                                  i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                                }`}
+                                className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                                  }`}
                               />
                             ))}
                           </div>
@@ -396,9 +408,9 @@ export default function ProductsPage() {
 
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
-                            <span className="text-2xl font-bold text-gray-900">€{product.price}</span>
+                            <span className="text-2xl font-bold text-gray-900">${product.price}</span>
                             {product.originalPrice && (
-                              <span className="text-lg text-gray-500 line-through">€{product.originalPrice}</span>
+                              <span className="text-lg text-gray-500 line-through">${product.originalPrice}</span>
                             )}
                           </div>
                           <Button

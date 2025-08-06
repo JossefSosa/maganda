@@ -10,7 +10,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
-export default function ProductModal({ product, isOpen, onClose }) {
+export default function ProductModal({ product, isOpen, onClose }: { product: any, isOpen: any, onClose: any }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [selectedSize, setSelectedSize] = useState("")
   const [selectedColor, setSelectedColor] = useState("")
@@ -86,13 +86,12 @@ export default function ProductModal({ product, isOpen, onClose }) {
             {/* Thumbnail Navigation */}
             {product.images.length > 1 && (
               <div className="flex gap-2 p-4 overflow-x-auto">
-                {product.images.map((image, index) => (
+                {product.images.map((image: any, index: number) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${
-                      currentImageIndex === index ? "border-black" : "border-gray-200"
-                    }`}
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${currentImageIndex === index ? "border-black" : "border-gray-200"
+                      }`}
                   >
                     <Image
                       src={image || "/placeholder.svg"}
@@ -126,9 +125,9 @@ export default function ProductModal({ product, isOpen, onClose }) {
               <p className="text-gray-600 mb-4">{product.category}</p>
 
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl font-bold text-gray-900">€{product.price}</span>
+                <span className="text-3xl font-bold text-gray-900">${product.price}</span>
                 {product.originalPrice && (
-                  <span className="text-xl text-gray-500 line-through">€{product.originalPrice}</span>
+                  <span className="text-xl text-gray-500 line-through">${product.originalPrice}</span>
                 )}
               </div>
 
@@ -139,16 +138,15 @@ export default function ProductModal({ product, isOpen, onClose }) {
             <div className="space-y-3">
               <Label className="text-base font-medium">Talla</Label>
               <RadioGroup value={selectedSize} onValueChange={setSelectedSize} className="flex flex-wrap gap-2">
-                {product.sizes.map((size) => (
+                {product.sizes.map((size: any) => (
                   <div key={size}>
                     <RadioGroupItem value={size} id={`size-${size}`} className="sr-only" />
                     <Label
                       htmlFor={`size-${size}`}
-                      className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${
-                        selectedSize === size
-                          ? "border-black bg-black text-white"
-                          : "border-gray-300 hover:border-gray-400"
-                      }`}
+                      className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${selectedSize === size
+                        ? "border-black bg-black text-white"
+                        : "border-gray-300 hover:border-gray-400"
+                        }`}
                     >
                       {size}
                     </Label>
@@ -161,16 +159,15 @@ export default function ProductModal({ product, isOpen, onClose }) {
             <div className="space-y-3">
               <Label className="text-base font-medium">Color</Label>
               <RadioGroup value={selectedColor} onValueChange={setSelectedColor} className="flex flex-wrap gap-2">
-                {product.colors.map((color) => (
+                {product.colors.map((color: any) => (
                   <div key={color}>
                     <RadioGroupItem value={color} id={`color-${color}`} className="sr-only" />
                     <Label
                       htmlFor={`color-${color}`}
-                      className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${
-                        selectedColor === color
-                          ? "border-black bg-black text-white"
-                          : "border-gray-300 hover:border-gray-400"
-                      }`}
+                      className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${selectedColor === color
+                        ? "border-black bg-black text-white"
+                        : "border-gray-300 hover:border-gray-400"
+                        }`}
                     >
                       {color}
                     </Label>

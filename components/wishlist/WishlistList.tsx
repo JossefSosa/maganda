@@ -34,8 +34,8 @@ export const WishlistList = ({ items, onRemoveItem }: WishlistListProps) => {
           <div className="flex-1 min-w-0">
             <h3 className="font-medium text-base mb-1 truncate">{item.name}</h3>
             <div className="flex items-center gap-3 mb-2">
-              <span className="font-bold text-lg">€{item.price}</span>
-              {item.originalPrice && <span className="text-sm text-gray-500 line-through">€{item.originalPrice}</span>}
+              <span className="font-bold text-lg">${item.price}</span>
+              {item.originalPrice && <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>}
               {item.originalPrice && (
                 <Badge variant="destructive" className="text-xs">
                   -{calculateDiscount(item.originalPrice, item.price)}%

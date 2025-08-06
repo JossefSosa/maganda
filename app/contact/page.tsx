@@ -20,7 +20,7 @@ export default function ContactPage() {
     message: "",
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault()
     console.log("Formulario enviado:", formData)
     alert("¡Gracias por tu mensaje! Te responderemos en menos de 24 horas.")
@@ -33,7 +33,7 @@ export default function ContactPage() {
     })
   }
 
-  const handleChange = (field, value) => {
+  const handleChange = (field: any, value: any) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
