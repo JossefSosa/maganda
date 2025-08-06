@@ -7,18 +7,19 @@ import type { User, Order } from "@/types/index"
 import { getStatusColor, formatDate } from "@/utils/helpers"
 
 interface DashboardViewProps {
-  userData: any
+  userData: User
   orders: Order[]
   onViewAllOrders: () => void
   onViewOrderDetails: (order: Order) => void
 }
 
 export const DashboardView = ({ userData, orders, onViewAllOrders, onViewOrderDetails }: DashboardViewProps) => {
-  console.log('userData :', userData.favorites.length);
+  // Calcular estadísticas
   const totalOrders = orders.length
   const totalSpent = orders.reduce((sum, order) => sum + order.total, 0)
-  const favoriteProducts = userData.favorites?.length || 0;
+  const favoriteProducts = 8 // Este valor podría venir de la wishlist
 
+  // Obtener los 3 pedidos más recientes
   const recentOrders = orders.slice(0, 3)
 
   return (
@@ -26,7 +27,7 @@ export const DashboardView = ({ userData, orders, onViewAllOrders, onViewOrderDe
       {/* Welcome Section */}
       <Card>
         <CardHeader>
-          <CardTitle>¡Bienvenida de vuelta, {userData.firstName}!</CardTitle>
+          <CardTitle>¡Bienvenida de vuelta, {userData.name.split(" ")[0]}!</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-3 gap-6">

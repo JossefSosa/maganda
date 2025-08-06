@@ -16,7 +16,7 @@ services:
 
   nextjs:
     build:
-      context: . # 👈 Usa la raíz como contexto
+      context: .             # 👈 Usa la raíz como contexto
       dockerfile: Dockerfile # 👈 Dockerfile también está en raíz
     container_name: maganda-nextjs
     restart: always
@@ -25,7 +25,8 @@ services:
     depends_on:
       - postgres
     volumes:
-      - images_data:/app/app/public/uploads # 👈 Porque el código está en /app/app dentro del contenedor
+      - images_data:/app/app/public/uploads  # 👈 Porque el código está en /app/app dentro del contenedor
+
 
 volumes:
   postgres_data:
