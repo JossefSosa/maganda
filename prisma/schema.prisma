@@ -149,22 +149,6 @@ model ProductVariant {
   @@index([productId])
 }
 
-model Size {
-  id           String    @id @default(uuid()) @db.Uuid
-  name         String
-  categoryId   String?   @db.Uuid
-  category     Category? @relation(fields: [categoryId], references: [id])
-  sortOrder    Int       @default(0)
-  measurements Json?
-}
-
-model Color {
-  id        String  @id @default(uuid()) @db.Uuid
-  name      String
-  hexCode   String?
-  sortOrder Int     @default(0)
-}
-
 model ProductReview {
   id                 String   @id @default(uuid()) @db.Uuid
   productId          String   @db.Uuid
@@ -177,6 +161,20 @@ model ProductReview {
   isVerifiedPurchase Boolean  @default(false)
   isApproved         Boolean  @default(false)
   createdAt          DateTime @default(now())
+}
+
+model ProductView {
+  id        String   @id @default(uuid()) @db.Uuid
+  productId String   @db.Uuid
+  userId    String?  @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ipAddress String?
+  userAgent String?
+  referrer  String?
+  createdAt DateTime @default(now())
+
+  @@index([productId])
 }
 
 model Collection {
@@ -205,6 +203,45 @@ model CollectionProduct {
   createdAt    DateTime   @default(now())
 
   @@unique([collectionId, productId])
+}
+
+model ProductInquiry {
+  id             String    @id @default(uuid()) @db.Uuid
+  productId      String    @db.Uuid
+  userId         String    @db.Uuid
+  product        Product   @relation(fields: [productId], references: [id])
+  user           User      @relation(fields: [userId], references: [id])
+  name           String
+  email          String
+  phone          String?
+  message        String
+  preferredSize  String?
+  preferredColor String?
+  quantity       Int       @default(1)
+  status         String    @default("pending")
+  priority       String    @default("medium")
+  assignedTo     String?
+  response       String?
+  respondedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([status])
+}
+
+model Size {
+  id           String    @id @default(uuid()) @db.Uuid
+  name         String
+  categoryId   String?   @db.Uuid
+  category     Category? @relation(fields: [categoryId], references: [id])
+  sortOrder    Int       @default(0)
+  measurements Json?
+}
+
+model Color {
+  id        String  @id @default(uuid()) @db.Uuid
+  name      String
+  hexCode   String?
+  sortOrder Int     @default(0)
 }
 
 model BlogCategory {
@@ -294,29 +331,6 @@ model BlogComment {
   createdAt  DateTime      @default(now())
 }
 
-model ProductInquiry {
-  id             String    @id @default(uuid()) @db.Uuid
-  productId      String    @db.Uuid
-  userId         String    @db.Uuid
-  product        Product   @relation(fields: [productId], references: [id])
-  user           User      @relation(fields: [userId], references: [id])
-  name           String
-  email          String
-  phone          String?
-  message        String
-  preferredSize  String?
-  preferredColor String?
-  quantity       Int       @default(1)
-  status         String    @default("pending")
-  priority       String    @default("medium")
-  assignedTo     String?
-  response       String?
-  respondedAt    DateTime?
-  createdAt      DateTime  @default(now())
-
-  @@index([status])
-}
-
 model ContactInquiry {
   id          String    @id @default(uuid()) @db.Uuid
   userId      String    @db.Uuid
@@ -369,20 +383,6 @@ model UserPreference {
   stylePreferences    Json?
   budgetRange         Json?
   updatedAt           DateTime @default(now())
-}
-
-model ProductView {
-  id        String   @id @default(uuid()) @db.Uuid
-  productId String   @db.Uuid
-  userId    String?  @db.Uuid
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  ipAddress String?
-  userAgent String?
-  referrer  String?
-  createdAt DateTime @default(now())
-
-  @@index([productId])
 }
 
 model SearchQuery {

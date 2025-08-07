@@ -21,7 +21,7 @@ import { useAddresses } from "@/hooks/useAddresses"
 import { useOrders } from "@/hooks/useOrders"
 
 // Data and Types
-import { userData, orders, wishlistData, addressesData } from "@/constants/mockData"
+import { orders, wishlistData, addressesData } from "@/constants/mockData"
 import type { TabValue } from "@/types"
 interface Props {
     userData: any
@@ -120,7 +120,7 @@ export default function ProfilePage({ userData }: Props) {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <Navigation onNavigateToProfile={handleNavigateToProfile} isLoggedIn={true} userData={userData} />
+            <Navigation />
             <div className="max-w-6xl mx-auto px-4 py-8">
                 <div className="grid lg:grid-cols-4 gap-8">
                     {/* Sidebar */}

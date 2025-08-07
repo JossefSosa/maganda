@@ -15,7 +15,30 @@ export const getProductById = async (id: string) => {
 export const listProducts = async () => {
     return prisma.product.findMany({
         where: { isActive: true },
-        include: { images: true },
+        include: {
+            images: true,
+            category: true,
+            variants: true,
+            reviews: true,
+            _count: {
+                select: { reviews: true },
+            },
+        },
+        orderBy: { createdAt: "desc" },
         take: 20,
+    })
+}
+
+export const getFeaturedProducts = async () => {
+    return prisma.product.findMany({
+        where: { isFeatured: true, isActive: true },
+        include: {
+            images: true,
+            category: true,
+            variants: true,
+            reviews: true,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10,
     })
 }

@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import Navigation from "@/components/navigation"
 import { userData } from "@/constants/mockData"
 
-export default function SizeGuide({ userData }: { userData: any }) {
+export default function SizeGuide() {
     const topSizes = [
         { size: "XS", chest: "81-86", waist: "66-71", length: "64" },
         { size: "S", chest: "86-91", waist: "71-76", length: "66" },
@@ -40,7 +40,7 @@ export default function SizeGuide({ userData }: { userData: any }) {
     return (
         <>
 
-            <Navigation userData={userData} />
+            <Navigation />
             <div className="max-w-4xl mx-auto p-4 space-y-6">
                 <div className="text-center space-y-2">
                     <h1 className="text-3xl font-bold flex items-center justify-center gap-2">
