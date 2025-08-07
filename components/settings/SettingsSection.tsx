@@ -14,7 +14,7 @@ export const SettingsSection = () => {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
         {/* Account Settings */}
         <Card>
           <CardHeader>
@@ -75,7 +75,7 @@ export const SettingsSection = () => {
         </Card>
 
         {/* Notification Settings */}
-        <Card>
+        {/* <Card>
           <CardHeader>
             <CardTitle>Notificaciones</CardTitle>
             <CardDescription>Controla cómo y cuándo recibes notificaciones</CardDescription>
@@ -152,7 +152,7 @@ export const SettingsSection = () => {
 
             <Button>Guardar preferencias</Button>
           </CardContent>
-        </Card>
+        </Card> */}
       </div>
 
       {/* Danger Zone */}

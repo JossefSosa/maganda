@@ -229,7 +229,7 @@ export default function Navigation({
                     >
                       Mi Perfil
                     </button>
-                    <button
+                    {/* <button
                       onClick={() => {
                         handleProfileNavigation("orders")
                         setIsMenuOpen(false)
@@ -255,7 +255,7 @@ export default function Navigation({
                       className="block py-2 text-gray-600 hover:text-gray-900 transition-colors w-full text-left"
                     >
                       Direcciones
-                    </button>
+                    </button> */}
                     <button
                       onClick={() => {
                         handleProfileNavigation("settings")

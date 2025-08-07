@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Product } from "@/types/products"
+import ContactForm from "./contact/ContactForm"
 
 type ProductModalProps = {
   product: Product | null
@@ -242,35 +243,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
               <p className="text-sm text-gray-600">
                 Completa el formulario y te contactaremos para ayudarte con tu consulta
               </p>
-
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    placeholder="Tu nombre"
-                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Tu email"
-                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
-                </div>
-                <input
-                  type="tel"
-                  placeholder="Tu teléfono (opcional)"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                />
-                <textarea
-                  placeholder="Mensaje (talla deseada, consultas, etc.)"
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none"
-                />
-                <Button className="w-full bg-black hover:bg-gray-800 text-white py-3">
-                  <Send className="h-4 w-4 mr-2" />
-                  Enviar Consulta
-                </Button>
-              </div>
+              <ContactForm isModal={true} />
             </div>
 
             <Button variant="outline" className="w-full py-3">

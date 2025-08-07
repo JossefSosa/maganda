@@ -5,34 +5,87 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { sendEmail } from "@/lib/mailer";
 
-export default function ContactForm() {
+type ContactFormProps = {
+    isModal?: boolean
+}
+
+
+export default function ContactForm({ isModal = false }: ContactFormProps) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         phone: "",
         subject: "",
         message: "",
-    });
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        console.log("Formulario enviado:", formData);
-        alert("¡Gracias por tu mensaje! Te responderemos en menos de 24 horas.");
-        setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            subject: "",
-            message: "",
-        });
-    };
-    const handleChange = (field: any, value: any) => {
-        setFormData((prev: any) => ({
-            ...prev,
-            [field]: value,
-        }));
-    };
+    })
+    const [isPending, startTransition] = useTransition()
+    const [status, setStatus] = useState<null | string>(null)
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        setStatus(null)
+
+        startTransition(async () => {
+            const res = await sendEmail(formData)
+            if (res.success) {
+                setStatus("¡Gracias por tu mensaje! Te responderemos en menos de 24 horas.")
+                setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
+            } else {
+                setStatus("Hubo un error al enviar el mensaje. Intenta más tarde.")
+            }
+        })
+    }
+
+    const handleChange = (field: keyof typeof formData, value: string) => {
+        setFormData((prev) => ({ ...prev, [field]: value }))
+    }
+
+    if (isModal) {
+        return (
+            <div className="space-y-3">
+                <div className="grid grid-cols-2 gap-3">
+                    <Input
+                        type="text"
+                        placeholder="Tu nombre"
+                        value={formData.name}
+                        onChange={(e) => handleChange("name", e.target.value)}
+                    />
+                    <Input
+                        type="email"
+                        placeholder="Tu email"
+                        value={formData.email}
+                        onChange={(e) => handleChange("email", e.target.value)}
+                    />
+                </div>
+                <Input
+                    type="tel"
+                    placeholder="Tu teléfono (opcional)"
+                    value={formData.phone}
+                    onChange={(e) => handleChange("phone", e.target.value)}
+                />
+                <Textarea
+                    placeholder="Mensaje (talla deseada, consultas, etc.)"
+                    rows={3}
+                    value={formData.message}
+                    onChange={(e) => handleChange("message", e.target.value)}
+                />
+                <Button
+                    className="w-full bg-black hover:bg-gray-800 text-white py-3"
+                    onClick={(e) => handleSubmit(e)}
+                    disabled={isPending}
+                >
+                    <Send className="h-4 w-4 mr-2" />
+                    {isPending ? "Enviando..." : "Enviar Consulta"}
+                </Button>
+
+                {status && <p className="text-center text-sm text-gray-700 mt-2">{status}</p>}
+            </div>
+        )
+    }
+
     return (
         <div className="lg:col-span-2">
             <Card className="shadow-lg">
@@ -46,9 +99,7 @@ export default function ContactForm() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-                                    Nombre Completo *
-                                </Label>
+                                <Label htmlFor="name">Nombre Completo *</Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -60,9 +111,7 @@ export default function ContactForm() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-                                    Email *
-                                </Label>
+                                <Label htmlFor="email">Email *</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -77,9 +126,7 @@ export default function ContactForm() {
 
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
-                                    Teléfono
-                                </Label>
+                                <Label htmlFor="phone">Teléfono</Label>
                                 <Input
                                     id="phone"
                                     type="tel"
@@ -90,10 +137,11 @@ export default function ContactForm() {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="subject" className="text-sm font-medium text-gray-700">
-                                    Asunto *
-                                </Label>
-                                <Select value={formData.subject} onValueChange={(value) => handleChange("subject", value)}>
+                                <Label htmlFor="subject">Asunto *</Label>
+                                <Select
+                                    value={formData.subject}
+                                    onValueChange={(value) => handleChange("subject", value)}
+                                >
                                     <SelectTrigger className="h-12">
                                         <SelectValue placeholder="Selecciona un asunto" />
                                     </SelectTrigger>
@@ -113,9 +161,7 @@ export default function ContactForm() {
                         </div>
 
                         <div className="space-y-2">
-                            <Label htmlFor="message" className="text-sm font-medium text-gray-700">
-                                Mensaje *
-                            </Label>
+                            <Label htmlFor="message">Mensaje *</Label>
                             <Textarea
                                 id="message"
                                 value={formData.message}
@@ -130,21 +176,20 @@ export default function ContactForm() {
                         <div className="flex items-start space-x-3">
                             <input type="checkbox" id="privacy" required className="mt-1 rounded border-gray-300" />
                             <Label htmlFor="privacy" className="text-sm text-gray-600 leading-relaxed">
-                                Acepto la política de privacidad
-                                {/* <a href="/privacy" className="text-black underline hover:no-underline"> */}
-                                {/* </a>{" "} */}
-                                y el tratamiento de mis datos personales. También acepto recibir comunicaciones comerciales de
-                                STYLISH. *
+                                Acepto la política de privacidad y el tratamiento de mis datos personales. También acepto
+                                recibir comunicaciones comerciales de STYLISH. *
                             </Label>
                         </div>
 
-                        <Button type="submit" className="w-full bg-black hover:bg-gray-800 h-12 text-lg">
+                        <Button type="submit" className="w-full bg-black hover:bg-gray-800 h-12 text-lg" disabled={isPending}>
                             <Send className="h-5 w-5 mr-2" />
-                            Enviar Mensaje
+                            {isPending ? "Enviando..." : "Enviar Mensaje"}
                         </Button>
+
+                        {status && <p className="text-center text-sm text-gray-700 mt-2">{status}</p>}
                     </form>
                 </CardContent>
             </Card>
         </div>
-    );
+    )
 }

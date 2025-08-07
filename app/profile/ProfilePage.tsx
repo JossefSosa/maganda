@@ -39,34 +39,34 @@ export default function ProfilePage({ userData }: Props) {
     // Manejar navegación desde URL params
     useEffect(() => {
         const section = searchParams.get("section")
-        if (section && ["dashboard", "profile", "orders", "wishlist", "addresses", "settings"].includes(section)) {
+        if (section && ["profile", "settings"].includes(section)) {
             setActiveTab(section as TabValue)
         }
     }, [searchParams])
 
-    const handleViewAllOrders = () => {
-        setActiveTab("orders")
-    }
+    // const handleViewAllOrders = () => {
+    //     setActiveTab("orders")
+    // }
 
-    const handleNavigateToProfile = (section?: string) => {
-        if (section) {
-            setActiveTab(section as TabValue)
-        } else {
-            setActiveTab("dashboard")
-        }
-    }
+    // const handleNavigateToProfile = (section?: string) => {
+    //     if (section) {
+    //         setActiveTab(section as TabValue)
+    //     } else {
+    //         setActiveTab("dashboard")
+    //     }
+    // }
 
     const renderContent = () => {
         switch (activeTab) {
-            case "dashboard":
-                return (
-                    <DashboardView
-                        userData={userData}
-                        orders={orders}
-                        onViewAllOrders={handleViewAllOrders}
-                        onViewOrderDetails={ordersHook.openOrderDetails}
-                    />
-                )
+            // case "dashboard":
+            //     return (
+            //         <DashboardView
+            //             userData={userData}
+            //             orders={orders}
+            //             onViewAllOrders={handleViewAllOrders}
+            //             onViewOrderDetails={ordersHook.openOrderDetails}
+            //         />
+            //     )
             case "profile":
                 return <ProfileSection userData={userData} />
             case "orders":
@@ -108,12 +108,13 @@ export default function ProfilePage({ userData }: Props) {
                 return <SettingsSection />
             default:
                 return (
-                    <DashboardView
-                        userData={userData}
-                        orders={orders}
-                        onViewAllOrders={handleViewAllOrders}
-                        onViewOrderDetails={ordersHook.openOrderDetails}
-                    />
+                    <ProfileSection userData={userData} />
+                    // <DashboardView
+                    //     userData={userData}
+                    //     orders={orders}
+                    //     onViewAllOrders={handleViewAllOrders}
+                    //     onViewOrderDetails={ordersHook.openOrderDetails}
+                    // />
                 )
         }
     }

@@ -16,9 +16,9 @@ interface SidebarProps {
 
 const menuItems = [
   { id: "profile" as TabValue, label: "Mi Perfil", icon: User },
-  { id: "orders" as TabValue, label: "Mis Pedidos", icon: Package },
-  { id: "wishlist" as TabValue, label: "Lista de Deseos", icon: Heart },
-  { id: "addresses" as TabValue, label: "Direcciones", icon: MapPin },
+  // { id: "orders" as TabValue, label: "Mis Pedidos", icon: Package },
+  // { id: "wishlist" as TabValue, label: "Lista de Deseos", icon: Heart },
+  // { id: "addresses" as TabValue, label: "Direcciones", icon: MapPin },
   { id: "settings" as TabValue, label: "Configuración", icon: Settings },
 ]
 
@@ -40,7 +40,7 @@ export const Sidebar = ({ userData, activeTab, onTabChange }: SidebarProps) => {
 
         <nav className="mt-8 space-y-2">
           {/* Dashboard Button - Always visible */}
-          <Button
+          {/* <Button
             variant="ghost"
             className={cn(
               "w-full justify-start",
@@ -50,7 +50,7 @@ export const Sidebar = ({ userData, activeTab, onTabChange }: SidebarProps) => {
           >
             <Package className="h-4 w-4 mr-3" />
             Dashboard
-          </Button>
+          </Button> */}
 
           {menuItems.map((item) => {
             const Icon = item.icon

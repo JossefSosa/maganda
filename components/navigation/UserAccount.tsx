@@ -46,7 +46,7 @@ export function UserAccount({
                             <User className="mr-2 h-4 w-4" />
                             <span>Mi Perfil</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleProfileNavigation("orders")}>
+                        {/* <DropdownMenuItem onClick={() => handleProfileNavigation("orders")}>
                             <Package className="mr-2 h-4 w-4" />
                             <span>Mis Pedidos</span>
                         </DropdownMenuItem>
@@ -57,7 +57,7 @@ export function UserAccount({
                         <DropdownMenuItem onClick={() => handleProfileNavigation("addresses")}>
                             <MapPin className="mr-2 h-4 w-4" />
                             <span>Direcciones</span>
-                        </DropdownMenuItem>
+                        </DropdownMenuItem> */}
                         <DropdownMenuItem onClick={() => handleProfileNavigation("settings")}>
                             <Settings className="mr-2 h-4 w-4" />
                             <span>Configuración</span>
