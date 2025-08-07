@@ -8,9 +8,23 @@ import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Product } from "@/types/products"
+import ContactForm from "./contact/ContactForm"
 
-export default function ProductModal({ product, isOpen, onClose }) {
+type ProductModalProps = {
+  product: Product | null
+  isOpen: boolean
+  onClose: () => void
+}
+
+export default function ProductModal({ product, isOpen, onClose }: ProductModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [selectedSize, setSelectedSize] = useState("")
   const [selectedColor, setSelectedColor] = useState("")
@@ -18,13 +32,26 @@ export default function ProductModal({ product, isOpen, onClose }) {
 
   if (!product) return null
 
+  const images = product.images ?? []
+  const sizes = product.variants
+    .map((v) => v.size)
+    .filter((s): s is string => !!s)
+  const colors = product.variants
+    .map((v) => v.color)
+    .filter((c): c is string => !!c)
+
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
   }
 
   const prevImage = () => {
-    setCurrentImageIndex((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
   }
+
+  const rating =
+    product.reviews.length > 0
+      ? product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length
+      : 0
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -38,14 +65,13 @@ export default function ProductModal({ product, isOpen, onClose }) {
           <div className="relative">
             <div className="relative aspect-square">
               <Image
-                src={product.images[currentImageIndex] || "/placeholder.svg"}
+                src={images[currentImageIndex]?.imageUrl || "/placeholder.svg"}
                 alt={product.name}
                 fill
                 className="object-cover"
               />
 
-              {/* Navigation Arrows */}
-              {product.images.length > 1 && (
+              {images.length > 1 && (
                 <>
                   <Button
                     variant="ghost"
@@ -66,13 +92,11 @@ export default function ProductModal({ product, isOpen, onClose }) {
                 </>
               )}
 
-              {/* Badges */}
               <div className="absolute top-4 left-4 flex flex-col gap-2">
                 {product.isNew && <Badge className="bg-black text-white">NUEVO</Badge>}
                 {product.isSale && <Badge className="bg-red-500 text-white">OFERTA</Badge>}
               </div>
 
-              {/* Close Button */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -83,20 +107,18 @@ export default function ProductModal({ product, isOpen, onClose }) {
               </Button>
             </div>
 
-            {/* Thumbnail Navigation */}
-            {product.images.length > 1 && (
+            {images.length > 1 && (
               <div className="flex gap-2 p-4 overflow-x-auto">
-                {product.images.map((image, index) => (
+                {images.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${
-                      currentImageIndex === index ? "border-black" : "border-gray-200"
-                    }`}
+                    className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 ${currentImageIndex === index ? "border-black" : "border-gray-200"
+                      }`}
                   >
                     <Image
-                      src={image || "/placeholder.svg"}
-                      alt={`${product.name} ${index + 1}`}
+                      src={image.imageUrl || "/placeholder.svg"}
+                      alt={image.altText || `${product.name} ${index + 1}`}
                       width={64}
                       height={64}
                       className="w-full h-full object-cover"
@@ -115,74 +137,91 @@ export default function ProductModal({ product, isOpen, onClose }) {
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+                      className={`h-4 w-4 ${i < Math.round(rating)
+                        ? "fill-yellow-400 text-yellow-400"
+                        : "text-gray-300"
+                        }`}
                     />
                   ))}
                 </div>
-                <span className="text-sm text-gray-600">({product.reviews} reseñas)</span>
+                <span className="text-sm text-gray-600">({product.reviews.length} reseñas)</span>
               </div>
 
               <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
-              <p className="text-gray-600 mb-4">{product.category}</p>
+              <p className="text-gray-600 mb-4">{product.category?.name || "Sin categoría"}</p>
 
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-3xl font-bold text-gray-900">€{product.price}</span>
+                <span className="text-3xl font-bold text-gray-900">${product.price}</span>
                 {product.originalPrice && (
-                  <span className="text-xl text-gray-500 line-through">€{product.originalPrice}</span>
+                  <span className="text-xl text-gray-500 line-through">
+                    ${product.originalPrice}
+                  </span>
                 )}
               </div>
 
-              <p className="text-gray-700 leading-relaxed">{product.description}</p>
+              <p className="text-gray-700 leading-relaxed">
+                {product.description || "Sin descripción disponible."}
+              </p>
             </div>
 
             {/* Size Selection */}
-            <div className="space-y-3">
-              <Label className="text-base font-medium">Talla</Label>
-              <RadioGroup value={selectedSize} onValueChange={setSelectedSize} className="flex flex-wrap gap-2">
-                {product.sizes.map((size) => (
-                  <div key={size}>
-                    <RadioGroupItem value={size} id={`size-${size}`} className="sr-only" />
-                    <Label
-                      htmlFor={`size-${size}`}
-                      className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${
-                        selectedSize === size
+            {sizes.length > 0 && (
+              <div className="space-y-3">
+                <Label className="text-base font-medium">Talla</Label>
+                <RadioGroup
+                  value={selectedSize}
+                  onValueChange={setSelectedSize}
+                  className="flex flex-wrap gap-2"
+                >
+                  {sizes.map((size) => (
+                    <div key={size}>
+                      <RadioGroupItem value={size} id={`size-${size}`} className="sr-only" />
+                      <Label
+                        htmlFor={`size-${size}`}
+                        className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${selectedSize === size
                           ? "border-black bg-black text-white"
                           : "border-gray-300 hover:border-gray-400"
-                      }`}
-                    >
-                      {size}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
+                          }`}
+                      >
+                        {size}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+            )}
 
             {/* Color Selection */}
-            <div className="space-y-3">
-              <Label className="text-base font-medium">Color</Label>
-              <RadioGroup value={selectedColor} onValueChange={setSelectedColor} className="flex flex-wrap gap-2">
-                {product.colors.map((color) => (
-                  <div key={color}>
-                    <RadioGroupItem value={color} id={`color-${color}`} className="sr-only" />
-                    <Label
-                      htmlFor={`color-${color}`}
-                      className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${
-                        selectedColor === color
+            {colors.length > 0 && (
+              <div className="space-y-3">
+                <Label className="text-base font-medium">Color</Label>
+                <RadioGroup
+                  value={selectedColor}
+                  onValueChange={setSelectedColor}
+                  className="flex flex-wrap gap-2"
+                >
+                  {colors.map((color) => (
+                    <div key={color}>
+                      <RadioGroupItem value={color} id={`color-${color}`} className="sr-only" />
+                      <Label
+                        htmlFor={`color-${color}`}
+                        className={`border-2 rounded-lg px-4 py-2 cursor-pointer transition-colors ${selectedColor === color
                           ? "border-black bg-black text-white"
                           : "border-gray-300 hover:border-gray-400"
-                      }`}
-                    >
-                      {color}
-                    </Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </div>
+                          }`}
+                      >
+                        {color}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
+              </div>
+            )}
 
             {/* Quantity */}
             <div className="space-y-3">
               <Label className="text-base font-medium">Cantidad</Label>
-              <Select value={quantity.toString()} onValueChange={(value) => setQuantity(Number.parseInt(value))}>
+              <Select value={quantity.toString()} onValueChange={(v) => setQuantity(+v)}>
                 <SelectTrigger className="w-24">
                   <SelectValue />
                 </SelectTrigger>
@@ -198,51 +237,21 @@ export default function ProductModal({ product, isOpen, onClose }) {
 
             {/* Contact Form */}
             <div className="space-y-4 border-t pt-6">
-              <h3 className="text-lg font-semibold text-gray-900">¿Te interesa este producto?</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                ¿Te interesa este producto?
+              </h3>
               <p className="text-sm text-gray-600">
                 Completa el formulario y te contactaremos para ayudarte con tu consulta
               </p>
-
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="text"
-                    placeholder="Tu nombre"
-                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Tu email"
-                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                  />
-                </div>
-                <input
-                  type="tel"
-                  placeholder="Tu teléfono (opcional)"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
-                />
-                <textarea
-                  placeholder="Mensaje (talla deseada, consultas, etc.)"
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none"
-                />
-                <Button className="w-full bg-black hover:bg-gray-800 text-white py-3">
-                  <Send className="h-4 w-4 mr-2" />
-                  Enviar Consulta
-                </Button>
-              </div>
+              <ContactForm isModal={true} />
             </div>
 
-            {/* Action Buttons */}
             <Button variant="outline" className="w-full py-3">
               <Heart className="h-4 w-4 mr-2" />
               Guardar en Favoritos
             </Button>
 
-            {/* Additional Info */}
             <div className="text-sm text-gray-600 space-y-2 pt-4 border-t">
-              <p>• Envío gratuito en pedidos superiores a €50</p>
-              <p>• Devoluciones gratuitas en 30 días</p>
               <p>• Atención al cliente 24/7</p>
             </div>
           </div>

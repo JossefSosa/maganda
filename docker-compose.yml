@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: maganda-db
+    restart: always
+    environment:
+      POSTGRES_USER: magandaAdmin
+      POSTGRES_PASSWORD: magandaDbPass
+      POSTGRES_DB: magandaDB
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  nextjs:
+    build:
+      context: . # 👈 Usa la raíz como contexto
+      dockerfile: Dockerfile # 👈 Dockerfile también está en raíz
+    container_name: maganda-nextjs
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - images_data:/app/app/public/uploads # 👈 Porque el código está en /app/app dentro del contenedor
+
+volumes:
+  postgres_data:
+  images_data:

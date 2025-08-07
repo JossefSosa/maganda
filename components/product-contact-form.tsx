@@ -57,7 +57,7 @@ export default function ProductContactForm({ isOpen, onClose, productName, produ
         <div className="space-y-4">
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-medium text-gray-900">{productName}</h3>
-            <p className="text-lg font-bold text-gray-900">€{productPrice}</p>
+            <p className="text-lg font-bold text-gray-900">${productPrice}</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">

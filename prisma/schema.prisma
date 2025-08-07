@@ -1,0 +1,437 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// 1. USUARIOS Y AUTENTICACIÓN
+model User {
+  id                   String    @id @default(uuid()) @db.Uuid
+  email                String    @unique
+  passwordHash         String
+  firstName            String
+  lastName             String
+  phone                String?   @db.VarChar(20)
+  dateOfBirth          DateTime?
+  gender               String?   @db.VarChar(10)
+  isVip                Boolean   @default(false)
+  emailVerified        Boolean   @default(false)
+  newsletterSubscribed Boolean   @default(false)
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @default(now())
+
+  addresses        UserAddress[]
+  sessions         UserSession[]
+  productReviews   ProductReview[]
+  favorites        UserFavorite[]
+  preferences      UserPreference?
+  productInquiries ProductInquiry[]
+  contactInquiries ContactInquiry[]
+  blogComments     BlogComment[]
+  blogPostLikes    BlogPostLike[]
+  productViews     ProductView[]
+  searchQueries    SearchQuery[]
+  userEvents       UserEvent[]
+}
+
+model UserAddress {
+  id           String   @id @default(uuid()) @db.Uuid
+  userId       String   @db.Uuid
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type         String   @default("both")
+  firstName    String
+  lastName     String
+  company      String?
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  state        String?
+  postalCode   String
+  country      String   @default("España")
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+}
+
+model UserSession {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+/// 2. PRODUCTOS Y CATÁLOGO
+model Category {
+  id          String     @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String     @unique
+  description String?
+  imageUrl    String?
+  parentId    String?    @db.Uuid
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  sortOrder   Int        @default(0)
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+
+  products Product[]
+  sizes    Size[]
+}
+
+model Product {
+  id               String    @id @default(uuid()) @db.Uuid
+  name             String
+  slug             String    @unique
+  description      String?
+  shortDescription String?
+  sku              String?   @unique
+  categoryId       String?   @db.Uuid
+  category         Category? @relation(fields: [categoryId], references: [id])
+  price            Decimal   @db.Decimal(10, 2)
+  originalPrice    Decimal?  @db.Decimal(10, 2)
+  costPrice        Decimal?  @db.Decimal(10, 2)
+  isNew            Boolean   @default(false)
+  isSale           Boolean   @default(false)
+  isFeatured       Boolean   @default(false)
+  isActive         Boolean   @default(true)
+  weight           Decimal?  @db.Decimal(8, 2)
+  dimensions       Json?
+  material         String?
+  careInstructions String?
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @default(now())
+
+  images      ProductImage[]
+  variants    ProductVariant[]
+  reviews     ProductReview[]
+  collections CollectionProduct[]
+  favorites   UserFavorite[]
+  inquiries   ProductInquiry[]
+  views       ProductView[]
+
+  @@index([categoryId])
+  @@index([isActive])
+  @@index([isFeatured])
+  @@index([price])
+}
+
+model ProductImage {
+  id        String   @id @default(uuid()) @db.Uuid
+  productId String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  imageUrl  String
+  altText   String?
+  sortOrder Int      @default(0)
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+model ProductVariant {
+  id              String   @id @default(uuid()) @db.Uuid
+  productId       String   @db.Uuid
+  product         Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku             String?  @unique
+  size            String?
+  color           String?
+  priceAdjustment Decimal  @default(0.00) @db.Decimal(10, 2)
+  stockQuantity   Int      @default(0)
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+
+  @@index([productId])
+}
+
+model ProductReview {
+  id                 String   @id @default(uuid()) @db.Uuid
+  productId          String   @db.Uuid
+  userId             String   @db.Uuid
+  product            Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating             Int
+  title              String?
+  comment            String?
+  isVerifiedPurchase Boolean  @default(false)
+  isApproved         Boolean  @default(false)
+  createdAt          DateTime @default(now())
+}
+
+model ProductView {
+  id        String   @id @default(uuid()) @db.Uuid
+  productId String   @db.Uuid
+  userId    String?  @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  ipAddress String?
+  userAgent String?
+  referrer  String?
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+model Collection {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String    @unique
+  description String?
+  imageUrl    String?
+  isFeatured  Boolean   @default(false)
+  isActive    Boolean   @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+
+  products CollectionProduct[]
+}
+
+model CollectionProduct {
+  id           String     @id @default(uuid()) @db.Uuid
+  collectionId String     @db.Uuid
+  productId    String     @db.Uuid
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sortOrder    Int        @default(0)
+  createdAt    DateTime   @default(now())
+
+  @@unique([collectionId, productId])
+}
+
+model ProductInquiry {
+  id             String    @id @default(uuid()) @db.Uuid
+  productId      String    @db.Uuid
+  userId         String    @db.Uuid
+  product        Product   @relation(fields: [productId], references: [id])
+  user           User      @relation(fields: [userId], references: [id])
+  name           String
+  email          String
+  phone          String?
+  message        String
+  preferredSize  String?
+  preferredColor String?
+  quantity       Int       @default(1)
+  status         String    @default("pending")
+  priority       String    @default("medium")
+  assignedTo     String?
+  response       String?
+  respondedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([status])
+}
+
+model Size {
+  id           String    @id @default(uuid()) @db.Uuid
+  name         String
+  categoryId   String?   @db.Uuid
+  category     Category? @relation(fields: [categoryId], references: [id])
+  sortOrder    Int       @default(0)
+  measurements Json?
+}
+
+model Color {
+  id        String  @id @default(uuid()) @db.Uuid
+  name      String
+  hexCode   String?
+  sortOrder Int     @default(0)
+}
+
+model BlogCategory {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String   @unique
+  description String?
+  color       String   @default("#000000")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  posts BlogPost[]
+}
+
+model BlogPost {
+  id              String        @id @default(uuid()) @db.Uuid
+  title           String
+  slug            String        @unique
+  excerpt         String?
+  content         String
+  featuredImage   String?
+  categoryId      String?       @db.Uuid
+  category        BlogCategory? @relation(fields: [categoryId], references: [id])
+  authorName      String
+  authorBio       String?
+  authorImage     String?
+  isFeatured      Boolean       @default(false)
+  isPublished     Boolean       @default(false)
+  readTime        Int?
+  likesCount      Int           @default(0)
+  commentsCount   Int           @default(0)
+  publishedAt     DateTime?
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @default(now())
+
+  tags     BlogPostTag[]
+  likes    BlogPostLike[]
+  comments BlogComment[]
+
+  @@index([categoryId])
+  @@index([isPublished])
+}
+
+model BlogTag {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  posts BlogPostTag[]
+}
+
+model BlogPostTag {
+  id     String   @id @default(uuid()) @db.Uuid
+  postId String   @db.Uuid
+  tagId  String   @db.Uuid
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    BlogTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
+}
+
+model BlogPostLike {
+  id        String   @id @default(uuid()) @db.Uuid
+  postId    String   @db.Uuid
+  userId    String   @db.Uuid
+  post      BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+}
+
+model BlogComment {
+  id         String        @id @default(uuid()) @db.Uuid
+  postId     String        @db.Uuid
+  userId     String        @db.Uuid
+  parentId   String?       @db.Uuid
+  post       BlogPost      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  parent     BlogComment?  @relation("CommentThread", fields: [parentId], references: [id])
+  children   BlogComment[] @relation("CommentThread")
+  content    String
+  isApproved Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+}
+
+model ContactInquiry {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @db.Uuid
+  user        User      @relation(fields: [userId], references: [id])
+  name        String
+  email       String
+  phone       String?
+  subject     String
+  message     String
+  type        String    @default("general")
+  status      String    @default("pending")
+  priority    String    @default("medium")
+  assignedTo  String?
+  response    String?
+  respondedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([status])
+}
+
+model NewsletterSubscription {
+  id             String    @id @default(uuid()) @db.Uuid
+  email          String    @unique
+  name           String?
+  isActive       Boolean   @default(true)
+  source         String?
+  subscribedAt   DateTime  @default(now())
+  unsubscribedAt DateTime?
+}
+
+model UserFavorite {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  productId String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+}
+
+model UserPreference {
+  id                  String   @id @default(uuid()) @db.Uuid
+  userId              String   @unique @db.Uuid
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preferredSizes      Json?
+  preferredColors     Json?
+  preferredCategories Json?
+  stylePreferences    Json?
+  budgetRange         Json?
+  updatedAt           DateTime @default(now())
+}
+
+model SearchQuery {
+  id           String   @id @default(uuid()) @db.Uuid
+  query        String
+  userId       String?  @db.Uuid
+  user         User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  resultsCount Int      @default(0)
+  ipAddress    String?
+  createdAt    DateTime @default(now())
+
+  @@index([query])
+}
+
+model UserEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventType String
+  eventData Json?
+  createdAt DateTime @default(now())
+}
+
+model SiteSetting {
+  id          String   @id @default(uuid()) @db.Uuid
+  key         String   @unique
+  value       String?
+  type        String   @default("string")
+  description String?
+  updatedAt   DateTime @default(now())
+}
+
+model Page {
+  id              String   @id @default(uuid()) @db.Uuid
+  title           String
+  slug            String   @unique
+  content         String?
+  metaTitle       String?
+  metaDescription String?
+  isPublished     Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+}
+
+model NavigationMenu {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  location  String
+  items     Json
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
