@@ -243,7 +243,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
               <p className="text-sm text-gray-600">
                 Completa el formulario y te contactaremos para ayudarte con tu consulta
               </p>
-              <ContactForm isModal={true} />
+              <ContactForm isModal={true} productName={product.name} />
             </div>
 
             <Button variant="outline" className="w-full py-3">

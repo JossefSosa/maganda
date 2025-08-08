@@ -28,7 +28,9 @@ interface ProfileSectionProps {
 }
 
 export const ProfileSection = ({ userData }: ProfileSectionProps) => {
-  const birthDate = userData.dateOfBirth?.split("T")[0]
+  const birthDate = new Date(userData.dateOfBirth)
+    .toISOString()
+    .split("T")[0]
   const memberSince = new Date(userData.createdAt).toLocaleDateString("es-MX", {
     year: "numeric",
     month: "long",
