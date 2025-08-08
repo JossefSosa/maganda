@@ -7,9 +7,30 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Separator } from "@/components/ui/separator"
-import { Bell, Shield, Eye, EyeOff } from "lucide-react"
+import { Shield, Eye, EyeOff } from "lucide-react"
 
-export const SettingsSection = () => {
+interface ProfileSectionProps {
+  userData: {
+    id: string
+    email: string
+    passwordHash: string
+    firstName: string
+    lastName: string
+    phone: string
+    dateOfBirth: string
+    gender: string
+    isVip: boolean
+    emailVerified: boolean
+    newsletterSubscribed: boolean
+    createdAt: string
+    updatedAt: string
+    addresses: any[]
+    favorites: any[]
+  }
+}
+
+export const SettingsSection = ({ userData }: ProfileSectionProps) => {
+  console.log('userData :', userData);
   const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -30,6 +51,7 @@ export const SettingsSection = () => {
                     id="current-password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Ingresa tu contraseña actual"
+                    disabled
                   />
                   <Button
                     type="button"

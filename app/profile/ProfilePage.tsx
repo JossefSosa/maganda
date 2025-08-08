@@ -105,7 +105,7 @@ export default function ProfilePage({ userData }: Props) {
                     />
                 )
             case "settings":
-                return <SettingsSection />
+                return <SettingsSection userData={userData} />
             default:
                 return (
                     <ProfileSection userData={userData} />

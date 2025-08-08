@@ -5,15 +5,16 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Textarea } from "../ui/textarea";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { sendEmail } from "@/lib/mailer";
 
 type ContactFormProps = {
     isModal?: boolean
+    productName?: string
 }
 
 
-export default function ContactForm({ isModal = false }: ContactFormProps) {
+export default function ContactForm({ isModal = false, productName = "" }: ContactFormProps) {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -44,6 +45,11 @@ export default function ContactForm({ isModal = false }: ContactFormProps) {
     }
 
     if (isModal) {
+        useEffect(() => {
+            if (productName) {
+                handleChange("subject", `Interesado en producto: ${productName}`)
+            }
+        }, [productName])
         return (
             <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">
@@ -72,6 +78,15 @@ export default function ContactForm({ isModal = false }: ContactFormProps) {
                     value={formData.message}
                     onChange={(e) => handleChange("message", e.target.value)}
                 />
+                <Input
+                    id="subject"
+                    type="text"
+                    value={formData.subject}
+                    readOnly
+                    placeholder="Asunto"
+                    className="hidden"
+                />
+
                 <Button
                     className="w-full bg-black hover:bg-gray-800 text-white py-3"
                     onClick={(e) => handleSubmit(e)}
