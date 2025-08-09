@@ -10,28 +10,28 @@ import { Badge } from "@/components/ui/badge"
 import Navigation from "@/components/navigation"
 import FeaturedPosts from "@/components/blog/FeaturedPosts"
 
-interface BlogPost {
-    id: string
-    title: string
-    slug: string
-    excerpt: string
-    image: string
-    category: {
-        name: string
-    }
-    tags: {
-        tag: { name: string }
-    }[]
-    date: string
-    readTime: string
-    featured?: boolean
-}
+// interface BlogPost {
+//     id: string
+//     title: string
+//     slug: string
+//     excerpt: string
+//     image: string
+//     category: {
+//         name: string
+//     }
+//     tags: {
+//         tag: { name: string }
+//     }[]
+//     date: string
+//     readTime: string
+//     featured?: boolean
+// }
 
 export default function BlogPageClient({
     blogPosts,
     categories,
 }: {
-    blogPosts: BlogPost[]
+    blogPosts: any[]
     categories: string[]
 }) {
     const [selectedCategory, setSelectedCategory] = useState("Todos")
@@ -42,7 +42,7 @@ export default function BlogPageClient({
         const searchMatch =
             post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            post.tags.some((tag) => tag.tag.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            post.tags.some((tag: any) => tag.tag.name.toLowerCase().includes(searchTerm.toLowerCase()))
         return categoryMatch && searchMatch
     })
 

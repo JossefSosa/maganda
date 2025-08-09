@@ -1,4 +1,4 @@
-
+export const dynamic = 'force-dynamic'
 
 import { getProfileAction } from "@/serverActions/userActions"
 import ProfilePage from "./ProfilePage"

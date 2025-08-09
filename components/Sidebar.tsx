@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { User, Package, Heart, MapPin, Settings } from "lucide-react"
+import { User, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { User as UserType, TabValue } from "@/types"
 

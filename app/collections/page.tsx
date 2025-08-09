@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import CollectionsPage from "./CollectionsPage";
 import { getAllCollectionsWithProductsAction } from "@/serverActions/collectionsActions";
 

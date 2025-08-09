@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import type { User, Order } from "@/types/index"
+import type { Order } from "@/types/index"
 import { getStatusColor, formatDate } from "@/utils/helpers"
 
 interface DashboardViewProps {
@@ -14,7 +14,6 @@ interface DashboardViewProps {
 }
 
 export const DashboardView = ({ userData, orders, onViewAllOrders, onViewOrderDetails }: DashboardViewProps) => {
-  console.log('userData :', userData.favorites.length);
   const totalOrders = orders.length
   const totalSpent = orders.reduce((sum, order) => sum + order.total, 0)
   const favoriteProducts = userData.favorites?.length || 0;

@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge"
 import { Ruler, Info } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import Navigation from "@/components/navigation"
-import { userData } from "@/constants/mockData"
 
 export default function SizeGuide() {
     const topSizes = [

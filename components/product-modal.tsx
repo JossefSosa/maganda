@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { X, Heart, Star, ChevronLeft, ChevronRight, Send } from "lucide-react"
+import { X, Heart, Star, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog"
 import { Badge } from "@/components/ui/badge"

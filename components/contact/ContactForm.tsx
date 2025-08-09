@@ -44,12 +44,13 @@ export default function ContactForm({ isModal = false, productName = "" }: Conta
         setFormData((prev) => ({ ...prev, [field]: value }))
     }
 
+    useEffect(() => {
+        if (isModal && productName) {
+            handleChange("subject", `Interesado en producto: ${productName}`)
+        }
+    }, [isModal, productName])
+
     if (isModal) {
-        useEffect(() => {
-            if (productName) {
-                handleChange("subject", `Interesado en producto: ${productName}`)
-            }
-        }, [productName])
         return (
             <div className="space-y-3">
                 <div className="grid grid-cols-2 gap-3">

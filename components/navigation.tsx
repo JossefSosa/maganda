@@ -5,17 +5,14 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {
   Menu,
-  Search,
   X,
   MessageCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { getProfileAction } from "@/serverActions/userActions"
 import DesktopNavigation from "./navigation/DesktopNavigation"
 import { UserAccount } from "./navigation/UserAccount"
 import Wishlist from "./navigation/WishList"
-import MovileSearchBar, { MovileSearchBarOpen } from "./navigation/MovileSearchBar"
 
 
 interface NavigationProps {
@@ -33,10 +30,8 @@ export default function Navigation({
   isLoggedIn = true,
 }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [userData, setUserData] = useState<NavigationProps["userData"] | null>(null)
   const router = useRouter()
-  // const pathname = usePathname()
 
   useEffect(() => {
     const fetchUserData = async () => {

@@ -12,12 +12,12 @@ export const getUserById = async (id: string) => {
     })
 }
 
-export const updateUser = async (id: string, data: Prisma.UserUpdateInput) => {
-    return prisma.user.update({
-        where: { id },
-        data,
-    })
-}
+// export const updateUser = async (id: string, data: Prisma.UserUpdateInput) => {
+//     return prisma.user.update({
+//         where: { id },
+//         data,
+//     })
+// }
 
 export const getUserFavorites = async (userId: string) => {
     return prisma.userFavorite.findMany({

@@ -8,7 +8,6 @@ import Navigation from "@/components/navigation"
 import { Sidebar } from "@/components/Sidebar"
 
 // Page Components
-import { DashboardView } from "@/components/dashboard/DashboardView"
 import { ProfileSection } from "@/components/profile/ProfileSection"
 import { OrdersSection } from "@/components/orders/OrdersSection"
 import { WishlistSection } from "@/components/wishlist/WishlistSection"

@@ -10,28 +10,28 @@ import { Separator } from "@/components/ui/separator"
 import Navigation from "@/components/navigation"
 
 
-interface BlogPostWithRelations {
-    id: string
-    title: string
-    slug: string
-    excerpt?: string | null
-    content: string
-    featuredImage?: string | null
-    category?: { name: string } | null
-    authorName: string
-    authorBio?: string | null
-    authorImage?: string | null
-    isFeatured: boolean
-    isPublished: boolean
-    readTime?: number | null
-    likesCount: number
-    commentsCount: number
-    publishedAt?: string | Date | null
-    createdAt: string | Date
-    tags: { tag: { name: string } }[]
-}
+// interface BlogPostWithRelations {
+//     id: string
+//     title: string
+//     slug: string
+//     excerpt?: string | null
+//     content: string
+//     featuredImage?: string | null
+//     category?: { name: string } | null
+//     authorName: string
+//     authorBio?: string | null
+//     authorImage?: string | null
+//     isFeatured: boolean
+//     isPublished: boolean
+//     readTime?: number | null
+//     likesCount: number
+//     commentsCount: number
+//     publishedAt?: string | Date | null
+//     createdAt: string | Date
+//     tags: { tag: { name: string } }[]
+// }
 
-export default function BlogPostPage({ blogPost }: { blogPost: BlogPostWithRelations }) {
+export default function BlogPostPage({ blogPost }: { blogPost: any }) {
     const [isLiked, setIsLiked] = useState(false)
 
     // Fecha publicada, fallback a createdAt
@@ -127,7 +127,7 @@ export default function BlogPostPage({ blogPost }: { blogPost: BlogPostWithRelat
                                 <span className="text-sm font-medium text-gray-600">Etiquetas:</span>
                             </div>
                             <div className="flex flex-wrap gap-2">
-                                {blogPost.tags.map(({ tag }) => (
+                                {blogPost.tags.map(({ tag }: { tag: any }) => (
                                     <Badge key={tag.name} variant="secondary">
                                         {tag.name}
                                     </Badge>

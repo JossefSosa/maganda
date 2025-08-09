@@ -4,12 +4,9 @@ import { Button } from "@/components/ui/button"
 import Navigation from "@/components/navigation"
 import ProductModal from "@/components/product-modal"
 import ProductsSection from "./ProductsSection"
-import { Product } from "@/types/products"
-import { Input } from "../ui/input"
-import { NewsletterSection } from "./NewsletterSection"
 import Link from "next/link"
 
-export default function Home({ products }: { products: Product[] }) {
+export default function Home({ products }: { products: any[] }) {
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [favorites, setFavorites] = useState<Set<number>>(new Set())
 
