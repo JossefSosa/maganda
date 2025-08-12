@@ -28,17 +28,17 @@ export default function ContactPage() {
         {/* Quick Contact Cards */}
         <QuickContactCards />
 
-        <div className="grid lg:grid-cols-3 gap-12">
+        <div className="grid lg:grid-cols-1 gap-12">
           {/* Contact Form */}
           <ContactForm />
 
           {/* Contact Information Sidebar */}
           <div className="space-y-8">
             {/* Contact Details */}
-            <ContactDetails />
+            {/* <ContactDetails /> */}
 
             {/* Social Media */}
-            <SocialMedia />
+            {/* <SocialMedia /> */}
 
             {/* FAQ Quick Links */}
             {/* <FAQQuickLinks /> */}

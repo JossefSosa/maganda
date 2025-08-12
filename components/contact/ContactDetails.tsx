@@ -19,7 +19,7 @@ export default function ContactDetails() {
                     </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
+                {/* <div className="flex items-start space-x-4">
                     <div className="bg-gray-100 p-3 rounded-lg">
                         <Phone className="h-5 w-5 text-gray-600" />
                     </div>
@@ -28,7 +28,7 @@ export default function ContactDetails() {
                         <p className="text-gray-600 text-sm mt-1">+34 900 123 456</p>
                         <p className="text-gray-600 text-sm">WhatsApp: +34 600 123 456</p>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="flex items-start space-x-4">
                     <div className="bg-gray-100 p-3 rounded-lg">

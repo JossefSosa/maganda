@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function QuickContactCards() {
     return (
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
-            <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="grid md:grid-cols-1 gap-6 mb-16">
+            {/* <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardContent className="p-8">
                     <div className="bg-green-600 text-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Phone className="h-8 w-8" />
@@ -20,7 +20,7 @@ export default function QuickContactCards() {
                         </Button>
                     </Link>
                 </CardContent>
-            </Card>
+            </Card> */}
 
             <Card className="text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <CardContent className="p-8">

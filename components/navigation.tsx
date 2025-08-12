@@ -109,29 +109,29 @@ export default function Navigation({
           {/* <DesktopSearchBar /> */}
 
           {/* Right Icons */}
-          <div className="flex items-center space-x-2">
-            {/* Search Icon - Mobile/Tablet */}
-            {/* <MovileSearchBar setIsSearchOpen={setIsSearchOpen} isSearchOpen={isSearchOpen} /> */}
+          {/* <div className="flex items-center space-x-2"> */}
+          {/* Search Icon - Mobile/Tablet */}
+          {/* <MovileSearchBar setIsSearchOpen={setIsSearchOpen} isSearchOpen={isSearchOpen} /> */}
 
-            {/* User Account */}
-            <UserAccount
+          {/* User Account */}
+          {/* <UserAccount
               handleLogout={handleLogout}
               handleProfileNavigation={handleProfileNavigation}
               isLoggedIn={isLoggedIn}
               userData={userData}
-            />
+            /> */}
 
 
-            {/* Wishlist */}
-            <Wishlist handleProfileNavigation={handleProfileNavigation} />
+          {/* Wishlist */}
+          {/* <Wishlist handleProfileNavigation={handleProfileNavigation} /> */}
 
 
 
-            {/* Contact */}
-            <Button variant="ghost" size="icon" className="relative" title="Contacto rápido">
+          {/* Contact */}
+          {/* <Button variant="ghost" size="icon" className="relative" title="Contacto rápido">
               <MessageCircle className="h-5 w-5" />
             </Button>
-          </div>
+          </div> */}
         </div>
 
 
