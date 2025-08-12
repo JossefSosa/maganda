@@ -29,7 +29,7 @@ export default function QuickContactCards() {
                     </div>
                     <h3 className="text-xl font-semibold mb-2">Email</h3>
                     <p className="text-gray-600 mb-4">Respuesta en menos de 24h</p>
-                    <Button variant="outline">info@stylish.com</Button>
+                    <Button variant="outline">Axelmaganda@icloud.com</Button>
                 </CardContent>
             </Card>
         </div>

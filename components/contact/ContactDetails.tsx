@@ -14,8 +14,8 @@ export default function ContactDetails() {
                     </div>
                     <div className="flex-1">
                         <h3 className="font-medium text-gray-900">Email</h3>
-                        <p className="text-gray-600 text-sm mt-1">info@stylish.com</p>
-                        <p className="text-gray-600 text-sm">soporte@stylish.com</p>
+                        <p className="text-gray-600 text-sm mt-1">Axelmaganda@icloud.com</p>
+                        <p className="text-gray-600 text-sm">magandatisolutions@gmail.com</p>
                     </div>
                 </div>
 
