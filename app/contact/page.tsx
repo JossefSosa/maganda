@@ -3,8 +3,8 @@
 import Navigation from "@/components/navigation"
 import QuickContactCards from "@/components/contact/QuickContactCards"
 import ContactForm from "@/components/contact/ContactForm"
-import ContactDetails from "@/components/contact/ContactDetails"
-import SocialMedia from "@/components/contact/SocialMedia"
+// import ContactDetails from "@/components/contact/ContactDetails"
+// import SocialMedia from "@/components/contact/SocialMedia"
 import TrustBadges from "@/components/contact/TrustBadges"
 
 export default function ContactPage() {

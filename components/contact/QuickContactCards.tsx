@@ -1,7 +1,7 @@
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
-import Link from "next/link";
+// import Link from "next/link";
 
 export default function QuickContactCards() {
     return (

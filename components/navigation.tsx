@@ -6,13 +6,12 @@ import { useRouter } from "next/navigation"
 import {
   Menu,
   X,
-  MessageCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { getProfileAction } from "@/serverActions/userActions"
 import DesktopNavigation from "./navigation/DesktopNavigation"
-import { UserAccount } from "./navigation/UserAccount"
-import Wishlist from "./navigation/WishList"
+// import { UserAccount } from "./navigation/UserAccount"
+// import Wishlist from "./navigation/WishList"
 
 
 interface NavigationProps {
@@ -31,6 +30,7 @@ export default function Navigation({
 }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [userData, setUserData] = useState<NavigationProps["userData"] | null>(null)
+  console.log('userData :', userData);
   const router = useRouter()
 
   useEffect(() => {
