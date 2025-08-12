@@ -61,7 +61,7 @@ export default function FiltersSidebar({
                     <div className="p-4">
                         <h3 className="font-semibold mb-4">Rango de Precio</h3>
                         <div className="space-y-4">
-                            <Slider value={priceRange} onValueChange={setPriceRange} max={300} step={5} className="w-full" />
+                            <Slider value={priceRange} onValueChange={setPriceRange} max={4000} step={5} className="w-full" />
                             <div className="flex justify-between text-sm text-gray-600">
                                 <span>${priceRange[0]}</span>
                                 <span>${priceRange[1]}</span>
