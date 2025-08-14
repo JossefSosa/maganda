@@ -30,9 +30,15 @@ export const listProducts = async () => {
 }
 
 export const getFeaturedProducts = async () => {
-    const featured = await prisma.product.findMany({
+    return prisma.product.findMany({
         where: { isFeatured: true, isActive: true },
+        include: {
+            images: true,
+            category: true,
+            variants: true,
+            reviews: true,
+        },
+        orderBy: { createdAt: "desc" },
+        take: 10,
     });
-    console.log('FEATURED PRODUCTS:', featured);
-    return featured;
 }

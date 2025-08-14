@@ -10,6 +10,7 @@ export default function ProductsSection({ products, favorites, setSelectedProduc
     setSelectedProduct: (product: any) => void,
     toggleFavorite: (productId: number) => void
 }) {
+    console.log('products :', products);
     return (
         <section className="py-16 px-4 max-w-7xl mx-auto">
             <div className="text-center mb-12">
