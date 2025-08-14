@@ -227,7 +227,7 @@ async function main() {
                 images: {
                     create: [
                         {
-                            imageUrl: "/imagenes/chamarra-parches.jpg",
+                            imageUrl: "/img/chamarra-parches.jpg",
                             altText: "Chamarra de mezclilla con parches",
                             isPrimary: true,
                             sortOrder: 1,
@@ -267,25 +267,25 @@ async function main() {
                 images: {
                     create: [
                         {
-                            imageUrl: "/imagenes/pantalon-parches_1.jpg",
+                            imageUrl: "/img/pantalon-parches_1.jpg",
                             altText: "Pantalón de mezclilla con parches",
                             isPrimary: true,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/pantalon-parches_2.jpg",
+                            imageUrl: "/img/pantalon-parches_2.jpg",
                             altText: "Pantalón de mezclilla con parches",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/pantalon-parches_3.jpg",
+                            imageUrl: "/img/pantalon-parches_3.jpg",
                             altText: "Pantalón de mezclilla con parches",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/pantalon-parches_4.jpg",
+                            imageUrl: "/img/pantalon-parches_4.jpg",
                             altText: "Pantalón de mezclilla con parches",
                             isPrimary: false,
                             sortOrder: 1,
@@ -325,31 +325,31 @@ async function main() {
                 images: {
                     create: [
                         {
-                            imageUrl: "/imagenes/chamarra-textura-asimetrica_1.jpg",
+                            imageUrl: "/img/chamarra-textura-asimetrica_1.jpg",
                             altText: "Chamarra de mezclilla con textura asimétrica",
                             isPrimary: true,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/chamarra-textura-asimetrica_2.jpg",
+                            imageUrl: "/img/chamarra-textura-asimetrica_2.jpg",
                             altText: "Chamarra de mezclilla con textura asimétrica",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/chamarra-textura-asimetrica_3.jpg",
+                            imageUrl: "/img/chamarra-textura-asimetrica_3.jpg",
                             altText: "Chamarra de mezclilla con textura asimétrica",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/chamarra-textura-asimetrica_4.jpg",
+                            imageUrl: "/img/chamarra-textura-asimetrica_4.jpg",
                             altText: "Chamarra de mezclilla con textura asimétrica",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "/imagenes/chamarra-textura-asimetrica_5.jpg",
+                            imageUrl: "/img/chamarra-textura-asimetrica_5.jpg",
                             altText: "Chamarra de mezclilla con textura asimétrica",
                             isPrimary: false,
                             sortOrder: 1,
