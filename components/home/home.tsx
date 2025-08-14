@@ -7,6 +7,7 @@ import ProductsSection from "./ProductsSection"
 import Link from "next/link"
 
 export default function Home({ products }: { products: any[] }) {
+    console.log('products :', products);
     const [selectedProduct, setSelectedProduct] = useState(null)
     const [favorites, setFavorites] = useState<Set<number>>(new Set())
 

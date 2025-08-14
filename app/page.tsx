@@ -5,6 +5,7 @@ import { getProductsFeaturedAction } from "@/serverActions/productsActions";
 
 export default async function HomePage() {
   const productsData = await getProductsFeaturedAction();
+  console.log('productsData :', productsData);
   // if (!productsData || "error" in productsData) {
   // return notFound()
   // }

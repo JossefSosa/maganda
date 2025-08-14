@@ -30,7 +30,7 @@ interface ProfileSectionProps {
 }
 
 export const SettingsSection = ({ userData }: ProfileSectionProps) => {
-  console.log('userData :', userData);
+  console.log('userData -->:', userData);
   const [showPassword, setShowPassword] = useState(false)
 
   return (

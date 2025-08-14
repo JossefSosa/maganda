@@ -1,6 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import {
+  //  useEffect, 
+  useState
+} from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import {
@@ -8,7 +11,7 @@ import {
   X,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { getProfileAction } from "@/serverActions/userActions"
+// import { getProfileAction } from "@/serverActions/userActions"
 import DesktopNavigation from "./navigation/DesktopNavigation"
 // import { UserAccount } from "./navigation/UserAccount"
 // import Wishlist from "./navigation/WishList"
@@ -29,22 +32,22 @@ export default function Navigation({
   isLoggedIn = true,
 }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [userData, setUserData] = useState<NavigationProps["userData"] | null>(null)
-  console.log('userData :', userData);
+  // const [userData, setUserData] = useState<NavigationProps["userData"] | null>(null)
+  // console.log('userData :', userData);
   const router = useRouter()
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      getProfileAction("e0f79244-e1b9-48db-ad23-c1e9e926b9c5")
-        .then((data) => {
-          setUserData(data)
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error)
-        })
-    }
-    fetchUserData();
-  }, [])
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     getProfileAction("e0f79244-e1b9-48db-ad23-c1e9e926b9c5")
+  //       .then((data) => {
+  //         setUserData(data)
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching user data:", error)
+  //       })
+  //   }
+  //   fetchUserData();
+  // }, [])
 
   const handleProfileNavigation = (section?: string) => {
     if (onNavigateToProfile) {
