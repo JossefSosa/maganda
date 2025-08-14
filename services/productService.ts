@@ -30,8 +30,6 @@ export const listProducts = async () => {
 }
 
 export const getFeaturedProducts = async () => {
-    const all = await prisma.product.findMany();
-    console.log('ALL PRODUCTS:', all);
     const featured = await prisma.product.findMany({
         where: { isFeatured: true, isActive: true },
     });
