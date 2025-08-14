@@ -27,7 +27,7 @@ export default function ProductsPage({
     // Estado de la categoría seleccionada
     const [selectedCategory, setSelectedCategory] = useState("Todos")
     // Estado del rango de precio seleccionado
-    const [priceRange, setPriceRange] = useState([0, 300])
+    const [priceRange, setPriceRange] = useState([0, 4000])
     // Alternar un producto como favorito (agregar o quitar del Set)
     const toggleFavorite = (productId: string) => {
         const updatedFavorites = new Set(favorites)
