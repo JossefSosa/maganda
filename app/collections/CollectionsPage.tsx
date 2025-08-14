@@ -22,7 +22,7 @@ type Props = {
     collectionProducts: Record<string, Product[]>
 }
 
-export default function CollectionsPage({ collections, collectionProducts }: Props) {
+export default function CollectionsPage({ collections = [], collectionProducts = {} }: Props) {
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
     const [selectedCollection, setSelectedCollection] = useState<Collection | null>(null)
     const [favorites, setFavorites] = useState<Set<string>>(new Set())
@@ -36,6 +36,7 @@ export default function CollectionsPage({ collections, collectionProducts }: Pro
         }
         setFavorites(newFavorites)
     }
+    const hasCollections = collections && collections.length > 0
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -52,29 +53,39 @@ export default function CollectionsPage({ collections, collectionProducts }: Pro
                             </p>
                         </div>
 
-                        {/* Featured Collection */}
-                        <FeaturedCollection
-                            collections={collections}
-                            setSelectedCollection={setSelectedCollection}
-                        />
+                        {hasCollections ? (
+                            <>
+                                {/* Featured Collection */}
+                                <FeaturedCollection
+                                    collections={collections}
+                                    setSelectedCollection={setSelectedCollection}
+                                />
 
-                        {/* Collections Grid */}
-                        <CollectionGrid
-                            collections={collections}
-                            setSelectedCollection={setSelectedCollection}
-                        />
+                                {/* Collections Grid */}
+                                <CollectionGrid
+                                    collections={collections}
+                                    setSelectedCollection={setSelectedCollection}
+                                />
+                            </>
+                        ) : (
+                            <p className="text-center text-gray-500">No hay colecciones disponibles.</p>
+                        )}
                     </>
                 ) : (
                     <>
                         {/* Collection Detail View */}
-                        <CollectionsDetail
-                            collectionProducts={collectionProducts}
-                            favorites={favorites}
-                            selectedCollection={selectedCollection}
-                            setSelectedProduct={setSelectedProduct}
-                            toggleFavorite={toggleFavorite}
-                            setSelectedCollection={setSelectedCollection}
-                        />
+                        {selectedCollection && collectionProducts[selectedCollection.id] ? (
+                            <CollectionsDetail
+                                collectionProducts={collectionProducts}
+                                favorites={favorites}
+                                selectedCollection={selectedCollection}
+                                setSelectedProduct={setSelectedProduct}
+                                toggleFavorite={toggleFavorite}
+                                setSelectedCollection={setSelectedCollection}
+                            />
+                        ) : (
+                            <p className="text-center text-gray-500">No hay productos para esta colección.</p>
+                        )}
                     </>
                 )}
             </div>

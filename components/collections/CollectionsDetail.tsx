@@ -43,6 +43,7 @@ export default function CollectionsDetail({
                     <Card
                         key={product.id}
                         className="group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md"
+                        onClick={() => setSelectedProduct(product)}
                     >
                         <CardContent className="p-0">
                             <div className="relative overflow-hidden">
@@ -52,7 +53,6 @@ export default function CollectionsDetail({
                                     width={400}
                                     height={500}
                                     className="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-300"
-                                    onClick={() => setSelectedProduct(product)}
                                 />
                                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                                     {product.isNew && <Badge className="bg-black text-white">NUEVO</Badge>}
@@ -96,17 +96,6 @@ export default function CollectionsDetail({
                                             <span className="text-lg text-gray-500 line-through">${product.originalPrice}</span>
                                         )}
                                     </div>
-                                    <Button
-                                        size="sm"
-                                        className="bg-black hover:bg-gray-800"
-                                        onClick={(e) => {
-                                            e.stopPropagation()
-                                            setSelectedProduct(product)
-                                        }}
-                                    >
-                                        <MessageCircle className="h-4 w-4 mr-2" />
-                                        Consultar
-                                    </Button>
                                 </div>
                             </div>
                         </CardContent>
