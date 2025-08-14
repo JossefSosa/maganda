@@ -227,7 +227,7 @@ async function main() {
                 images: {
                     create: [
                         {
-                            imageUrl: "/img/chamarra-parches.jpg",
+                            imageUrl: "/img/chamarra-parches.jpeg",
                             altText: "Chamarra de mezclilla con parches",
                             isPrimary: true,
                             sortOrder: 1,
@@ -529,9 +529,33 @@ async function main() {
                 images: {
                     create: [
                         {
-                            imageUrl: "",
+                            imageUrl: "chamarra-denim-rescatado_1.jpg",
                             altText: "",
                             isPrimary: true,
+                            sortOrder: 1,
+                        },
+                        {
+                            imageUrl: "chamarra-denim-rescatado_2.jpg",
+                            altText: "",
+                            isPrimary: false,
+                            sortOrder: 1,
+                        },
+                        {
+                            imageUrl: "chamarra-denim-rescatado_3.jpg",
+                            altText: "",
+                            isPrimary: false,
+                            sortOrder: 1,
+                        },
+                        {
+                            imageUrl: "chamarra-denim-rescatado_4.jpg",
+                            altText: "",
+                            isPrimary: false,
+                            sortOrder: 1,
+                        },
+                        {
+                            imageUrl: "chamarra-denim-rescatado_5.jpg",
+                            altText: "",
+                            isPrimary: false,
                             sortOrder: 1,
                         },
                     ],
