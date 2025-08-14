@@ -11,11 +11,12 @@
 // // 
 
 "use client"
+export const dynamic = "force-dynamic";
 
 import { Wrench, Clock, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export default function MaintenancePage() {
+export default function Profile() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-4">
       <div className="max-w-md w-full text-center space-y-8">

@@ -1,4 +1,5 @@
-"use server"
+export const dynamic = "force-dynamic";
+
 import SizeGuide from "./SizeGuidePage";
 
 export default async function SizeGuidePage() {

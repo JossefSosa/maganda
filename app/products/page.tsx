@@ -1,4 +1,5 @@
-"use server"
+export const dynamic = "force-dynamic";
+
 import { getAllProductsAction } from "@/serverActions/productsActions";
 import ProductsPage from "./ProductsPage";
 import { getAllCategoriesAction } from "@/serverActions/categoriesActions";

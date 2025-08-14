@@ -17,6 +17,7 @@
 // }
 
 "use client"
+export const dynamic = "force-dynamic";
 
 import { Wrench, Clock, ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
