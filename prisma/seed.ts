@@ -529,31 +529,31 @@ async function main() {
                 images: {
                     create: [
                         {
-                            imageUrl: "chamarra-denim-rescatado_1.jpg",
+                            imageUrl: "/img/chamarra-denim-rescatado_1.jpg",
                             altText: "",
                             isPrimary: true,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "chamarra-denim-rescatado_2.jpg",
+                            imageUrl: "/img/chamarra-denim-rescatado_2.jpg",
                             altText: "",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "chamarra-denim-rescatado_3.jpg",
+                            imageUrl: "/img/chamarra-denim-rescatado_3.jpg",
                             altText: "",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "chamarra-denim-rescatado_4.jpg",
+                            imageUrl: "/img/chamarra-denim-rescatado_4.jpg",
                             altText: "",
                             isPrimary: false,
                             sortOrder: 1,
                         },
                         {
-                            imageUrl: "chamarra-denim-rescatado_5.jpg",
+                            imageUrl: "/img/chamarra-denim-rescatado_5.jpg",
                             altText: "",
                             isPrimary: false,
                             sortOrder: 1,
@@ -755,7 +755,7 @@ async function main() {
                         { productId: products[3].id, sortOrder: 4 },
                     ],
                 },
-                imageUrl: "https://cdn.downloadgram.org/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6ImRvd25sb2FkZ3JhbS5vcmdfNDkxNDUyNzg0XzE3OTE3NTE5MTM0MDg1MzE2Xzc0ODMxMTc4NTU5ODYxODc0MDVfbi5qcGciLCJ1cmwiOiJodHRwczovL3Njb250ZW50LWlhZDMtMS5jZG5pbnN0YWdyYW0uY29tL3YvdDUxLjI4ODUtMTUvNDkxNDUyNzg0XzE3OTE3NTE5MTM0MDg1MzE2Xzc0ODMxMTc4NTU5ODYxODc0MDVfbi5qcGc_c3RwPWRzdC1qcGdfZTM1X3AxMDgweDEwODBfc2gwLjA4X3R0NiZfbmNfaHQ9c2NvbnRlbnQtaWFkMy0xLmNkbmluc3RhZ3JhbS5jb20mX25jX2NhdD0xMDgmX25jX29jPVE2Y1oyUUVFWDFvR2JFcENtamk3LVE5LWxWYVBaUEt5Vl9WbkJfaWwtdklnTTFiWWdYWmY1dUpLUFUzeTBJdFR2blpwUG5tZjRRbngzeG5MMHVEYkxkNEVsYkllJl9uY19vaGM9QzB5V0FBLVV0M2tRN2tOdndIRlpzdXMmX25jX2dpZD16V1ZpMWtHX2hiSDZPSk9RV1NNRmh3JmVkbT1BTlRLSUlvQkFBQUEmY2NiPTctNSZvaD0wMF9BZlhXRE9xZHEybG02Tk9ILWxHN29rVjBjMWxjYVprWGh1Y2hmMTZhLWhVaXZnJm9lPTY4QTA1RkZGJl9uY19zaWQ9ZDg4NWEyIiwiZXhwIjoxNzU0OTYzNjcxLCJmb3JjZSI6ZmFsc2UsImlhdCI6MTc1NDk2MDA3MX0.6MCsDVbKx0k7jK8R_bt5b01xLCK8JlK1Cjtoq1hOCfo"
+                imageUrl: "/img/chamarra-parches.jpeg"
             },
         }),
         prisma.collection.create({
@@ -774,7 +774,7 @@ async function main() {
                         { productId: products[7].id, sortOrder: 2 },
                     ],
                 },
-                imageUrl: "https://cdn.downloadgram.org/?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6ImRvd25sb2FkZ3JhbS5vcmdfNTMxNTI3Nzk2XzE3OTMwMTgyMzQxMDg1MzE2XzQ4NjM3MzczMzU4MDExMjQzNzVfbi5qcGciLCJ1cmwiOiJodHRwczovL3Njb250ZW50LWlhZDMtMS5jZG5pbnN0YWdyYW0uY29tL3YvdDUxLjI4ODUtMTUvNTMxNTI3Nzk2XzE3OTMwMTgyMzQxMDg1MzE2XzQ4NjM3MzczMzU4MDExMjQzNzVfbi5qcGc_c3RwPWRzdC1qcGdfZTM1X3AxMDgweDEwODBfc2gwLjA4X3R0NiZfbmNfaHQ9c2NvbnRlbnQtaWFkMy0xLmNkbmluc3RhZ3JhbS5jb20mX25jX2NhdD0xMDgmX25jX29jPVE2Y1oyUUdFZ3Jad2thLU5iUVRyWE5NZGdnVzFrYlkyT0lXLXpCZm9KaGp3eUZlYld5S05LWnRISHRKS1JSWmt5dWdid25SazRHdF9jM0pQYnZETjlEZzJreWR3Jl9uY19vaGM9Q1N0NG5VcnVYUUVRN2tOdndHbGNkWHQmX25jX2dpZD1RczhleG1aSWZnVUpSQnJCcWUzTmt3JmVkbT1BTlRLSUlvQkFBQUEmY2NiPTctNSZvaD0wMF9BZlhjU3E3Vmp4OXNEeVU1UTA2WUZHMDNBcVo3RHk5T1lTZ0d3cGt6R0p4WGN3Jm9lPTY4QTA2Nzc4Jl9uY19zaWQ9ZDg4NWEyIiwiZXhwIjoxNzU0OTY0NjQyLCJmb3JjZSI6ZmFsc2UsImlhdCI6MTc1NDk2MTA0Mn0.1lEaEncKl4sxoCxp4j680L5v9lsbPeoHAvHmZCDCqqM"
+                imageUrl: "/img/chamarra-denim_1.jpg"
             },
         }),
     ]);
