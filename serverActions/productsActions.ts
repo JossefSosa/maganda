@@ -26,6 +26,7 @@ export async function getProductsFeaturedAction() {
         const products = await getFeaturedProducts()
         return products;
     } catch (err) {
+        console.log('err :', err);
         // return { error: "Failed to load products" }
         return [];
     }
